@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../static/css/signInUp.css"/>
+    <link rel="stylesheet" href="{% static 'css/signInUp.css' %}"/>
     <title>Bread Authentication</title>
 </head>
 <body>
@@ -11,7 +12,8 @@
 <div class="container sign-in-activate">
     <div class="forms-container">
         <div class="login-reg">
-            <form action="#" class="reg-form">
+            <form action="#" class="reg-form" method="post">
+                {% csrf_token %}
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
                     <i></i>
@@ -30,7 +32,8 @@
                 <div class="social-media">
                 </div>
             </form>
-            <form action="#" class="log-form">
+            <form action="#" class="log-form" method="post">
+                {% csrf_token %}
 
                 <h2 class="title">Sign in</h2>
                 <div class="input-field"><i></i>
@@ -65,6 +68,6 @@
         </div>
     </div>
 </div>
-<script src="../static/js/signInUp.js"></script>
+<script src="{% static 'js/signInUp.js' %}"></script>
 </body>
 </html>
