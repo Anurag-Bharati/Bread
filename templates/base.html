@@ -11,10 +11,11 @@
     {% else %}
       <title>Bread</title>
     {% endif %}
+  {% block head %}
+  {% endblock head %}
   </head>
   <body>
     <div class="container">
-    <h1>HI BOOTSTRAP</h1>
         {% block content %}
         {% endblock %}
     </div>
