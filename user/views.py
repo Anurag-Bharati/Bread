@@ -1,10 +1,16 @@
 import re
-
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.shortcuts import render
-
 import validate_email as EmailValidator
+
+from django.urls import reverse
+from django.shortcuts import render
+from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+
+from user.utils import activation_token
 
 
 def authenticate(request):
@@ -20,6 +26,7 @@ def authenticate(request):
 
 def home(request):
     return render(request, 'base.html')
+
 
 # CUSTOM FUNCTIONS
 
@@ -40,12 +47,10 @@ def checkPass(request, password):
 
 
 def login(request):
-    print("F")
     return render(request, 'signInUp.html')
 
 
 def signup(request):
-
     username = request.POST['username']
     email = request.POST['email']
     password = request.POST['password']
@@ -54,14 +59,47 @@ def signup(request):
         'signUp': True
     }
 
+    # Guard Clauses
+
     if User.objects.filter(username=username).exists():
-        pass
+        messages.error(request, 'Username already taken!')
+        return render(request, 'signInUp.html', context)
     elif User.objects.filter(email=email).exists():
-        pass
+        messages.error(request, 'Email already exists')
+        return render(request, 'signInUp.html', context)
     elif not EmailValidator.validate_email(email):
-        pass
+        messages.error(request, 'Invalid Email')
+        return render(request, 'signInUp.html', context)
     elif checkPass(request, password):
         return render(request, 'signInUp.html', context)
     else:
+        # If All Check Passes
+        user = User.objects.create_user(username=username, email=email)
+        user.set_password(password)
+        user.is_active = False
+        user.save()
+
+        current_site = get_current_site(request)
+        email_body = {
+            'user': user,
+            'domain': current_site.domain,
+            'id': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': activation_token.make_token(user),
+        }
+        # TODO ACTIVATE URL
+        link = reverse('activate', kwargs={
+            'idb64': email_body['id'], 'token': email_body['token']})
+
+        activate_url = 'http://' + current_site.domain + link
+
+        email = EmailMessage(
+            "Activate your account",
+            'Hi ' + user.username + ', Please visit the link to activate your account \n' + activate_url,
+            'noreply@bread.com',
+            [email],
+        )
+        email.send(fail_silently=False)
+        messages.success(request, 'Account successfully Created')
         return render(request, 'signInUp.html', context)
 
+# EMAIL VERF WORKED SUCCESSFULLY BUT VERF LINK HAD A PROB
