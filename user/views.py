@@ -9,12 +9,14 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import auth
 
 from user.utils import activation_token
 
 
 # Handles login and register
 def authenticate(request):
+    messages.error(request, "")
     if request.method == 'POST':
         if 'email' not in request.POST:
             return login(request)
@@ -47,6 +49,7 @@ def verification(request, identity, token):
             print(ex)
             return redirect('auth')
 
+
 def activated(request):
     return render(request, 'activated.html')
 
@@ -70,7 +73,37 @@ def checkPass(request, password):
 
 
 def login(request):
-    return render(request, 'signInUp.html')
+    username = request.POST['username']
+    password = request.POST['password']
+    if not username and not password:
+        messages.error(request, "Please fill all the forms.")
+        return render(request, 'signInUp.html')
+    user = auth.authenticate(username=username, password=password)
+    context = {
+        'fieldValues': request.POST,
+        'signUp': False
+    }
+    if not user:
+        try:
+            user_temp = User.objects.get(username=username)
+        except Exception as e:
+            print('[DatabaseQueryException] @user.views "User not found", line 87 | Response = '+str(e))
+            user_temp = None
+
+        if user_temp is None:
+            messages.error(request, "Invalid credentials")
+            return render(request, 'signInUp.html')
+        elif not user_temp.check_password(password):
+            messages.error(request, "Password doesn't match")
+            return render(request, 'signInUp.html', context)
+        else:
+            messages.error(request, "Account not activated, Please check your email.")
+            return render(request, 'signInUp.html', context)
+
+    auth.login(request, user)
+    messages.success(request, "Greetings!\n" + user.username)
+    # TODO Home
+    return redirect('home')
 
 
 def signup(request):
@@ -119,5 +152,4 @@ def signup(request):
         messages.success(request, 'Account successfully Created')
         return render(request, 'signInUp.html', context)
 
-# EMAIL VERF WORKED SUCCESSFULLY BUT VERF LINK HAD A PROB
-
+# TODO ForgetPassword,Logout
