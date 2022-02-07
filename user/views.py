@@ -53,6 +53,12 @@ def verification(request, identity, token):
 def activated(request):
     return render(request, 'activated.html')
 
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, "Logged out successfully")
+        return redirect('auth')
+
 
 # CUSTOM FUNCTIONS
 
@@ -101,7 +107,6 @@ def login(request):
             return render(request, 'signInUp.html', context)
 
     auth.login(request, user)
-    messages.success(request, "Greetings!\n" + user.username)
     # TODO Home
     return redirect('home')
 
@@ -152,4 +157,5 @@ def signup(request):
         messages.success(request, 'Account successfully Created')
         return render(request, 'signInUp.html', context)
 
-# TODO ForgetPassword,Logout
+# TODO HOMEPAGE Backend
+# TODO ForgetPassword
