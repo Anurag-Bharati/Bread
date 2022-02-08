@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
 <body>
-    <!-- TODO SIDE BAR -->
+    {% include 'base/sidebar.html' %}
     <div id="right-panel" class="right-panel">
         {% include 'base/navbar.html' %}
         {% block breadcrumbs %}
