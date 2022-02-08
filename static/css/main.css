@@ -393,7 +393,6 @@ Hero Section
 }
 
 .hero .hero-btn {
-
     margin-top: 40px;
 }
 .hero .hero-btn .start-btn {
@@ -430,7 +429,7 @@ Hero Section
 
 
 /*--------------------
-Social Media
+Amenities Section
 --------------------*/
 .amenities {
     padding: 15px 0;
@@ -466,7 +465,7 @@ Social Media
     margin: 0 6px 0 0;
 }
 /*--------------------
-Fun Facts Section
+Statistics Section
 --------------------*/
 .statistics {
     background-color: var(--black-100);
@@ -587,7 +586,7 @@ How It Works Section
 }
 
 /*--------------------
-product Section
+product
 --------------------*/
 .product {
     background-color: var(--black-100);

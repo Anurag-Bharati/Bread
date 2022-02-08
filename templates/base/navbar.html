@@ -1,0 +1,36 @@
+{% load static %}
+
+<header id="header" class="header">
+    <div class="top-left">
+        <div class="navbar-header">
+            <!-- TODO LOGO ON NAV -->
+            <a class="navbar-brand" href="./"><img src="{% static 'images/' %}" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="./"><img src="{% static 'images/' %}" alt="Logo"></a>
+            <a id="menuToggle" class="menu-toggle"><i class="fa fa-bars"></i></a>
+        </div>
+    </div>
+    <div class="top-right">
+        <div class="header-menu">
+            <div class="header-left">
+                <div class="dropdown for-notification">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                        <span class="count bg-danger">0</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="notification">
+                        <p class="red">No Notification</p>
+                        <a class="dropdown-item media" href="#">
+                            <i class="fa fa-check"></i>
+                            <p>New Notification will show here</p>
+                        </a>
+
+                    </div>
+                </div>
+            <div class="user-area dropdown float-right">
+                    <a class="btn" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Logout</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>

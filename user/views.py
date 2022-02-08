@@ -28,7 +28,7 @@ def authenticate(request):
 
 
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'base/home_base.html')
 
 
 def verification(request, identity, token):
@@ -157,5 +157,6 @@ def signup(request):
         messages.success(request, 'Account successfully Created')
         return render(request, 'signInUp.html', context)
 
+# TODO MAIN CSS REMOVE COMMENTS
 # TODO HOMEPAGE Backend
 # TODO ForgetPassword
