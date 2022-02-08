@@ -5,13 +5,15 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import EmailMessage
-from django.contrib.auth.models import User
+
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import auth
 
-from user.utils import activation_token
+from users.forms import LoginForm, RegistrationForm
+from users.models import User
+from users.utils import activation_token
 
 
 # Handles login and register
@@ -79,11 +81,18 @@ def checkPass(request, password):
 
 
 def login(request):
+
+    form = LoginForm(request.POST)
+    if not form.is_valid():
+        messages.error(request, "Please fill all the forms.")
+        return render(request, 'signInUp.html')
+
     username = request.POST['username']
     password = request.POST['password']
     if not username and not password:
         messages.error(request, "Please fill all the forms.")
         return render(request, 'signInUp.html')
+
     user = auth.authenticate(username=username, password=password)
     context = {
         'fieldValues': request.POST,
@@ -93,7 +102,7 @@ def login(request):
         try:
             user_temp = User.objects.get(username=username)
         except Exception as e:
-            print('[DatabaseQueryException] @user.views "User not found", line 87 | Response = '+str(e))
+            print('[DatabaseQueryException] @users.views "User not found", line 87 | Response = '+str(e))
             user_temp = None
 
         if user_temp is None:
@@ -112,13 +121,18 @@ def login(request):
 
 
 def signup(request):
-    username = request.POST['username']
-    email = request.POST['email']
-    password = request.POST['password']
     context = {
         'fieldValues': request.POST,
         'signUp': True
     }
+    form = RegistrationForm(request.POST)
+    if not form.is_valid():
+        messages.error(request, "Please fill all the forms.")
+        return render(request, 'signInUp.html', context)
+
+    username = request.POST['username']
+    email = request.POST['email']
+    password = request.POST['password']
 
     # Guard Clauses
 
@@ -138,6 +152,9 @@ def signup(request):
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.is_active = False
+        user.is_staff = False
+        user.is_admin = False
+        user.is_customer = True
         user.save()
 
         current_site = get_current_site(request).domain
