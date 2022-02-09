@@ -53,9 +53,9 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=200, null=True)),
                 ('status', models.CharField(choices=[('pending', 'Pending'), ('processing', 'Processing'), ('approved', 'Approved'), ('decline', 'Decline'), ('complete', 'Complete')], max_length=10)),
                 ('created_date', models.DateField(auto_now_add=True)),
-                ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.customer')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.product')),
-                ('staff', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.staff')),
+                ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='manage.customer')),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='manage.product')),
+                ('staff', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='manage.staff')),
             ],
         ),
         migrations.CreateModel(
@@ -64,8 +64,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('package_name', models.CharField(max_length=120)),
                 ('created_date', models.DateField(auto_now_add=True)),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.order')),
-                ('staff', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.staff')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='manage.order')),
+                ('staff', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='manage.staff')),
             ],
         ),
     ]

@@ -87,8 +87,8 @@ def login(request):
         messages.error(request, "Please fill all the forms.")
         return render(request, 'signInUp.html')
 
-    username = request.POST['username']
-    password = request.POST['password']
+    username = form.cleaned_data['username']
+    password = form.cleaned_data['password']
     if not username and not password:
         messages.error(request, "Please fill all the forms.")
         return render(request, 'signInUp.html')
@@ -116,8 +116,7 @@ def login(request):
             return render(request, 'signInUp.html', context)
 
     auth.login(request, user)
-    # TODO Home
-    return redirect('home')
+    return redirect('dashboard')
 
 
 def signup(request):
@@ -174,6 +173,4 @@ def signup(request):
         messages.success(request, 'Account successfully Created')
         return render(request, 'signInUp.html', context)
 
-# TODO MAIN CSS REMOVE COMMENTS
-# TODO HOMEPAGE Backend
 # TODO ForgetPassword
