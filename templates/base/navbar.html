@@ -23,11 +23,15 @@
                             <i class="fa fa-check"></i>
                             <p>New Notification will show here</p>
                         </a>
-
                     </div>
                 </div>
             <div class="user-area dropdown float-right">
-                    <a class="btn" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Logout</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger btn-sm" style="margin-left: 20px" type="submit">
+                       Logout
+                    </button>
+                </form>
                 </div>
             </div>
 
