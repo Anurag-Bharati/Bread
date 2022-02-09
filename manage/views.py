@@ -117,13 +117,13 @@ def create_order(request):
             return redirect('order-list')
     context = {
         'form': forms
-    }   # TODO HTML
-    return render(request, 'dashboard/', context)
+    }
+    return render(request, 'dashboard/create_order.html', context)
 
 
 class OrderListView(ListView):
-    model = Order   # TODO HTML
-    template_name = 'dashboard/'
+    model = Order
+    template_name = 'dashboard/order_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -143,13 +143,13 @@ def create_delivery(request):
             return redirect('delivery-list')
     context = {
         'form': forms
-    }   # TODO HTML
-    return render(request, 'dashboard/', context)
+    }
+    return render(request, 'dashboard/create_delivery.html', context)
 
 
 class DeliveryListView(ListView):
     model = Delivery
-    template_name = 'dashboard/'   # TODO HTML
+    template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
 
 

@@ -1,4 +1,3 @@
-$.noConflict();
 
 jQuery(document).ready(function($) {
 
@@ -41,8 +40,6 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	 
-	 
 	// Menu Trigger
 	$('#menuToggle').on('click', function(event) {
 		var windowWidth = $(window).width();   		 
@@ -79,6 +76,8 @@ jQuery(document).ready(function($) {
 		} 
 		
 	});
+
+
   
  
 });

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 
-{% block title %}Customer List{% endblock title %}
+{% block title %}Delivery List{% endblock title %}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -10,7 +10,7 @@
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
                         <li><a href="#">Manage</a></li>
-                        <li><a href="#">Customer</a></li>
+                        <li><a href="#">Delivery</a></li>
                         <li class="active">List</li>
                     </ol>
                 </div>
@@ -25,7 +25,7 @@
     <div class="col-xl-12" align="center">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">Customer List </h4>
+                <h4 class="box-title">Delivery List </h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -33,25 +33,25 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Email</th>
+                                <th>Order</th>
+                                <th>Package Name</th>
+                                <th>Staff Assigned</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% if customer %}
-                            {% for c in customer %}
+                            {% if delivery %}
+                            {% for delivery in delivery %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ c.name }}</td>
-                                <td>{{ c.address }}</td>
-                                <td>{{ c.user.email }}</td>
-                                <td>{{ c.created_date }}</td>
+                                <td>{{ delivery.order }}</td>
+                                <td>{{ delivery.package_name }}</td>
+                                <td>{{ delivery.staff }}</td>
+                                <td>{{ delivery.created_date }}</td>
                             </tr>
                             {% endfor %}
                             {% else %}
-                                <tr><td>No Customer Data</td></tr>
+                                <tr><td>No Delivery Data</td></tr>
                             {% endif %}
                         </tbody>
                     </table>

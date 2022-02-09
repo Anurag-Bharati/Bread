@@ -5,7 +5,7 @@ $(window).on("load",function(){
 
 $(document).ready(function () {
 
-    /*----- Navbar Shrink -----*/
+    // Navbar Shrink
     $(window).on("scroll",function(){
         if($(this).scrollTop() > 70){
             $(".navbar").addClass("navbar-shrink");
@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
     });
 
-     /*----- Testimonials Carousel -----*/
+     // Carousel
      $('.testimonials-carousel').owlCarousel({
         loop:true,
         margin:0,
@@ -36,50 +36,14 @@ $(document).ready(function () {
         }
     })
 
-    /*----- Page Scroll -----*/
+    // Page Scroll
     $.scrollIt({
         topOffset: -50
     });
 
-     /*----- Navbar Collapse -----*/
+     // Navbar Collapse
      $(".nav-link").on("click", function(){
         $(".navbar-collapse").collapse("hide");
      });
-
-     /*----- Toggle Theme -----*/
-     function toggleTheme(){
-         if(localStorage.getItem("mitratani-theme") !== null){
-            if(localStorage.getItem("mitratani-theme") === "dark"){
-                $("body").addClass("dark");
-            }
-            else{
-                $("body").removeClass("dark");
-            }
-         }
-        updateIcon();
-    }
-    toggleTheme();
-
-    $(".toggle-theme").on("click", function(){
-       $("body").toggleClass("dark");
-       if($("body").hasClass("dark")){
-           localStorage.setItem("mitratani-theme","dark")
-       }
-       else{
-           localStorage.setItem("mitratani-theme","light")
-       }
-       updateIcon();
-    });
-
-    function updateIcon(){
-        if($("body").hasClass("dark")){
-           $(".toggle-theme i").removeClass("fa-moon");
-           $(".toggle-theme i").addClass("fa-sun");
-        }
-        else {
-           $(".toggle-theme i").removeClass("fa-sun");
-           $(".toggle-theme i").addClass("fa-moon");
-        }
-    }
 
 });

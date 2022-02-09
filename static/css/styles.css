@@ -19,6 +19,34 @@ body {
     background-image: url("../images/bread_pattern.png");
     animation: animate 30s linear infinite;
 }
+
+.dark{
+    background-image: url("../images/dark_bread_pattern.png");
+    animation: animate 30s linear infinite;
+}
+
+.toggle-theme {
+    display: inherit;
+    position: relative;
+    margin-left: 10px;
+    height: 30px;
+    width: 30px;
+    background-color: #8bc34a;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+.toggle-theme:hover{
+    background-color: #6a9d2f;
+}
+
+.toggle-theme i {
+    line-height: 40px;
+}
+
+
 @keyframes animate {
     0% {
         background-position: 0 0;
@@ -470,7 +498,6 @@ aside.left-panel:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-
 /* Right panel */
 .right-panel {
     background: #f1f2f7;
@@ -482,6 +509,7 @@ aside.left-panel:hover {
     float: left;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
+
 .right-panel .top-right {
     float: right;
 }
@@ -497,7 +525,7 @@ aside.left-panel:hover {
     float: left;
 }
 .right-panel .page-header {
-    min-height: 50px;
+    min-height: 40px;
     margin: 0;
     padding: 0 15px;
     background: #ffffff;
@@ -731,7 +759,7 @@ header .form-inline .search-form.close {
     justify-content: flex-end;
 }
 .header-menu .dropdown {
-    line-height: 55px;
+    line-height: 52px;
     margin-top: 0 !important;
 }
 .header-menu .dropdown .dropdown-toggle {
@@ -2142,6 +2170,9 @@ footer.site-footer .footer-inner a {
     .order-table .avatar,
     .order-table .serial {
         display: none;
+    }
+    .right-panel{
+        margin-top: 25px;
     }
 }
 @media (max-width: 575px) {
