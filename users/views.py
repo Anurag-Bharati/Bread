@@ -11,10 +11,21 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import auth
 
+from manage.models import Customer
 from users.forms import LoginForm, RegistrationForm
 from users.models import User
 from users.utils import activation_token
 
+import threading
+
+class Thread(threading.Thread):
+
+    def __init__(self, task):
+        self.task = task
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.task.send(fail_silently=False)
 
 # Handles login and register
 def authenticate(request):
@@ -132,6 +143,7 @@ def signup(request):
     username = request.POST['username']
     email = request.POST['email']
     password = request.POST['password']
+    address = request.POST['address']
 
     # Guard Clauses
 
@@ -156,6 +168,8 @@ def signup(request):
         user.is_customer = True
         user.save()
 
+        Customer.objects.create(user=user, name=username, address=address)
+
         current_site = get_current_site(request).domain
 
         magic_link = reverse('activate', kwargs={
@@ -169,8 +183,9 @@ def signup(request):
             'noreply@bread.com',
             [email],
         )
-        email.send(fail_silently=False)
-        messages.success(request, 'Account successfully Created')
+        Thread(email).start()
+        messages.success(request, 'A verification mail is sent to your email')
         return render(request, 'signInUp.html', context)
 
 # TODO ForgetPassword
+

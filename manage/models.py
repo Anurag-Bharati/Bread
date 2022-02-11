@@ -51,14 +51,14 @@ class Order(models.Model):
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.product.name
+        return self.product.name + " by " + self.customer.name + " in " + self.created_date.__str__()
 
 
 class Delivery(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    package_name = models.CharField(max_length=120)
+    order_name = models.CharField(max_length=120)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.package_name
+        return self.order_name

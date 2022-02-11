@@ -45,7 +45,7 @@ jQuery(document).ready(function($) {
 		var windowWidth = $(window).width();   		 
 		if (windowWidth<1010) { 
 			$('body').removeClass('open'); 
-			if (windowWidth<760){ 
+			if (windowWidth<820){
 				$('#left-panel').slideToggle(); 
 			} else {
 				$('#left-panel').toggleClass('open-menu');  
@@ -76,8 +76,5 @@ jQuery(document).ready(function($) {
 		} 
 		
 	});
-
-
-  
  
 });

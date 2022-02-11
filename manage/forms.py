@@ -126,6 +126,37 @@ class OrderForm(forms.ModelForm):
             }),
         }
 
+class EditOrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = [
+            'staff', 'product', 'quantity', 'toppings', 'description', 'customer', 'status',
+        ]
+
+        widgets = {
+            'staff': forms.Select(attrs={
+                'class': 'form-control', 'id': 'staff'
+            }),
+            'product': forms.Select(attrs={
+                'class': 'form-control', 'id': 'product'
+            }),
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'quantity'
+            }),
+            'toppings': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'toppings'
+            }),
+            'description': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'description'
+            }),
+            'customer': forms.Select(attrs={
+                'class': 'form-control', 'id': 'customer'
+            }),
+            'status': forms.Select(attrs={
+                'class': 'form-control', 'id': 'status'
+            }),
+        }
+
 
 class DeliveryForm(forms.ModelForm):
     class Meta:
@@ -136,10 +167,11 @@ class DeliveryForm(forms.ModelForm):
             'order': forms.Select(attrs={
                 'class': 'form-control', 'id': 'order'
             }),
-            'package_name': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'package_name'
-            }),
             'staff': forms.Select(attrs={
                 'class': 'form-control', 'id': 'staff'
             }),
+            'order_name': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'order_name'
+            }),
+
         }

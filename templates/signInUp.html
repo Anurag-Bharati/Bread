@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <link href="{% static 'images/donut.png' %}" rel="icon">
+    <link href="{% static 'images/donut.png' %}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{% static 'css/signInUp.css' %}"/>
     <title>Bread Authentication</title>
 </head>
@@ -23,6 +25,10 @@
                 <div class="input-field">
                     <i></i>
                     <input type="email" name="email" placeholder="Email" value="{{fieldValues.email}}"/>
+                </div>
+                <div class="input-field">
+                    <i></i>
+                    <input type="text" name="address" placeholder="Address" value="{{fieldValues.address}}"/>
                 </div>
                 <div class="input-field">
                     <i></i>

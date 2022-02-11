@@ -1,14 +1,16 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 
 from users.models import User
 from .models import Staff, Customer, Product, Order, Delivery
-from .forms import StaffForm, CustomerForm, ProductForm, OrderForm, DeliveryForm
+from .forms import StaffForm, CustomerForm, ProductForm, OrderForm, DeliveryForm, EditOrderForm
 
 
-# Staff
-@login_required(login_url='auth')
+# Staff views
+@login_required(login_url='login')
 def create_staff(request):
     forms = StaffForm()
     if request.method == 'POST':
@@ -130,26 +132,102 @@ class OrderListView(ListView):
         context['order'] = Order.objects.all().order_by('-id')
         return context
 
-# TODO UPDATE ORDER
+
+class ModifyOrder(ListView):
+    model = Order
+    template_name = 'dashboard/modify_order.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order'] = Order.objects.all().order_by('-id')
+        return context
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='/auth')
+def edit_order(request, id):
+    order = Order.objects.get(pk=id)
+    if request.method == 'GET':
+        forms = EditOrderForm(initial={
+            'staff': order.staff,
+            'customer': order.customer,
+            'product': order.product,
+            'quantity': order.quantity,
+            'toppings': order.toppings,
+            'description': order.description,
+            'status': order.status
+        })
+        context = {
+            'form': forms
+        }
+        return render(request, 'dashboard/edit-order.html', context)
+
+    elif request.method == 'POST':
+        forms = EditOrderForm(request.POST)
+        if not forms.is_valid():
+            context = {'form': forms}
+            return render(request, 'dashboard/edit-order.html', context)
+
+        staff = forms.cleaned_data['staff']
+        product = forms.cleaned_data['product']
+        customer = forms.cleaned_data['customer']
+        quantity = request.POST['quantity']
+        toppings = request.POST['toppings']
+        description = request.POST['description']
+        status = request.POST['status']
+
+        if staff:
+            order.staff = staff
+        if product:
+            order.product = product
+        if customer:
+            order.customer = customer
+        if quantity:
+            order.quantity = quantity
+        if toppings:
+            order.toppings = toppings
+        if description:
+            order.description = description
+        if status:
+            order.status = status
+
+        order.save()
+        messages.success(request, 'Order updated  successfully')
+        return redirect('modify-order')
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='/auth')
+def delete_order(request, id):
+    order = Order.objects.get(pk=id)
+    order.delete()
+    messages.success(request, 'Order removed')
+    return redirect('modify-order')
 
 # Delivery
 @login_required(login_url='auth')
 def create_delivery(request):
-    forms = DeliveryForm()
+
     if request.method == 'POST':
         forms = DeliveryForm(request.POST)
-        if forms.is_valid():
-            forms.save()
+        if not forms.is_valid():
+            context = {
+                'form': forms
+            }
+            return render(request, 'dashboard/create_delivery.html', context)
+        order = forms.cleaned_data['order']
+        if order.status == 'complete':
+            messages.error(request, "Can not deliver already delivered item")
             return redirect('delivery-list')
-    context = {
-        'form': forms
-    }
-    return render(request, 'dashboard/create_delivery.html', context)
+
+        order.status = "complete"
+        order.save()
+        forms.save()
+        messages.success(request, "Order successfully delivered")
+        return redirect('delivery-list')
+    return redirect('delivery-list')
 
 
 class DeliveryListView(ListView):
     model = Delivery
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
-
-

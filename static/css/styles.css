@@ -153,7 +153,7 @@ textarea {
 }
 .order-table tr td:last-child,
 .order-table tr th:last-child {
-    text-align: right;
+    text-align: center;
 }
 .order-table tr:last-child td {
     border: none;
@@ -1799,6 +1799,8 @@ footer.site-footer .footer-inner a {
     aside.left-panel {
         max-width: 83px;
         width: 83px;
+        max-height: 100%;
+        height: 100%;
     }
 
     aside.left-panel .navbar .navbar-header {
@@ -2080,7 +2082,26 @@ footer.site-footer .footer-inner a {
         flex: none;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 820px) {
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead{
+        text-align: center;
+    }
+    tr td {
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    }
+    tr td:last-child {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-bottom: 3px solid #333;
+    }
     .navbar {
         height: 100vh;
     }
@@ -2096,10 +2117,13 @@ footer.site-footer .footer-inner a {
 
     .left-panel {
         display: none;
+        max-height: 100%;
+        height: 100%;
     }
 
     aside.left-panel {
         overflow: scroll;
+        top:45px;
     }
 
     .right-panel header.header {
@@ -2174,6 +2198,7 @@ footer.site-footer .footer-inner a {
     .right-panel{
         margin-top: 25px;
     }
+
 }
 @media (max-width: 575px) {
     #left-panel .navbar {

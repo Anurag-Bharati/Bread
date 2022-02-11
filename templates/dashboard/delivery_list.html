@@ -21,6 +21,26 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+
+    <!--MESSAGE PANEL-->
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
 <div class="row">
     <div class="col-xl-12" align="center">
         <div class="card">
@@ -34,7 +54,7 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Order</th>
-                                <th>Package Name</th>
+                                <th>Order Name</th>
                                 <th>Staff Assigned</th>
                                 <th>Date</th>
                             </tr>
@@ -45,7 +65,7 @@
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ delivery.order }}</td>
-                                <td>{{ delivery.package_name }}</td>
+                                <td>{{ delivery.order_name }}</td>
                                 <td>{{ delivery.staff }}</td>
                                 <td>{{ delivery.created_date }}</td>
                             </tr>

@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import create_staff, create_customer, create_product, create_order, create_delivery, \
-    StaffListView, CustomerListView, ProductListView, OrderListView, DeliveryListView
+    edit_order, StaffListView, CustomerListView, ProductListView, OrderListView, DeliveryListView, \
+    ModifyOrder, delete_order
 
 urlpatterns = [
 
@@ -20,6 +21,8 @@ urlpatterns = [
     path('delivery-list/', DeliveryListView.as_view(), name='delivery-list'),
 
     # MODIFY
-
+    path('modify-order/', ModifyOrder.as_view(), name='modify-order'),
+    path('edit-order/<int:id>', edit_order, name='edit-order'),
+    path('delete-order/<int:id>', delete_order, name='delete-order'),
 
 ]

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 
-{% block title %}Order List{% endblock title %}
+{% block title %}Edit Order{% endblock title %}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -11,7 +11,7 @@
                     <ol class="breadcrumb text-right">
                         <li><a href="#">Manage</a></li>
                         <li><a href="#">Order</a></li>
-                        <li class="active">List</li>
+                        <li class="active">Modify</li>
                     </ol>
                 </div>
             </div>
@@ -21,25 +21,30 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-     <!--MESSAGE PANEL-->
+    <!--MESSAGE PANEL-->
     {% if messages %}
         {% for message in messages %}
-            {% if message.tag == "success" %}
+            {% if message.tags == "success" %}
             <div class="alert alert-success" role="alert">
                 {{ message }}
             </div>
-            {% elif message.tag == "error" %}
+            {% elif message.tags == "error" %}
             <div class="alert alert-danger" role="alert">
                 {{message}}
             </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>
             {% endif %}
         {% endfor %}
     {% endif %}
+
 <div class="row">
     <div class="col-xl-12" align="center">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">Order List</h4>
+                <h4 class="box-title">Edit Order</h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h ">
@@ -54,8 +59,9 @@
                                     <th>Toppings</th>
                                     <th>Description</th>
                                     <th>Customer</th>
-                                    <th>Date</th>
                                     <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +75,6 @@
                                     <td>{{ order.toppings }}</td>
                                     <td>{{ order.description }}</td>
                                     <td>{{ order.customer }}</td>
-                                    <td>{{ order.created_date }}</td>
                                     <td>
                                         {% if order.status == 'pending' %}
                                             <a class="btn btn-warning btn-sm disabled" role="button" href=""
@@ -86,7 +91,16 @@
                                             <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status }}</a>
                                         {% endif %}
                                     </td>
-
+                                    <td><a href="{% url 'edit-order' order.id %}" role="button" class="btn btn-warning
+                                    btn-sm">Edit</a></td>
+                                    <td><a href="{% url 'delete-order' order.id %}" onclick="return confirm('Are you ' +
+                                     'sure?' +
+                                     '');"
+                                           id="delete-order"
+                                           role="button"
+                                           class="btn
+                                    btn-danger
+                                    btn-sm">Delete</a></td>
                                 </tr>
                                 {% endfor %}
                                 {% else %}
@@ -98,8 +112,6 @@
                 </div>
             </div>
         </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
-
-    
+    </div>
 </div>
 {% endblock content %}
