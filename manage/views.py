@@ -1,8 +1,10 @@
 from django.contrib import messages
+from django.core.serializers import json
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from users.models import User
 from .models import Staff, Customer, Product, Order, Delivery
@@ -210,13 +212,15 @@ def create_delivery(request):
     if request.method == 'POST':
         forms = DeliveryForm(request.POST)
         if not forms.is_valid():
-            context = {
-                'form': forms
-            }
+            context = {'form': forms}
             return render(request, 'dashboard/create_delivery.html', context)
+
         order = forms.cleaned_data['order']
         if order.status == 'complete':
             messages.error(request, "Can not deliver already delivered item")
+            return redirect('delivery-list')
+        elif order.status == 'decline':
+            messages.error(request, "Can not deliver declined item")
             return redirect('delivery-list')
 
         order.status = "complete"
@@ -231,3 +235,30 @@ class DeliveryListView(ListView):
     model = Delivery
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
+
+@login_required(login_url='auth')
+def order_summary(request):
+    if request.method == 'GET':
+
+        pendingOrder = Order.objects.filter(status__exact='pending').count()
+        completeOrder = Order.objects.filter(status__exact='complete').count()
+        declineOrder = Order.objects.filter(status__exact='decline').count()
+        approvedOrder = Order.objects.filter(status__exact='approved').count()
+        processingOrder = Order.objects.filter(status__exact='processing').count()
+
+        baked_data = {}
+
+        if pendingOrder:
+            baked_data['PENDING'] = pendingOrder
+        if approvedOrder:
+            baked_data['APPROVED'] = approvedOrder
+        if processingOrder:
+            baked_data['PROCESSING'] = processingOrder
+        if completeOrder:
+            baked_data['COMPLETE'] = completeOrder
+        if declineOrder:
+            baked_data['DECLINED'] = declineOrder
+
+        packaged_data = {'order_summary': baked_data}
+
+        return JsonResponse(packaged_data, safe=False)
