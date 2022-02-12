@@ -13,11 +13,14 @@
     <link href="{% static 'images/donut.png' %}" rel="apple-touch-icon">
 
     <!-- carousel slider by OWL-Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css"
+        integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
@@ -46,8 +49,8 @@
                                 class="fas fa-home me-2"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-scroll-nav="1" href="#"><i
-                                class="fas fa-th-large me-2"></i>How it works?</a>
+                        <a class="nav-link" data-scroll-nav="1" href="#"><i class="fas fa-th-large me-2"></i>How it
+                            works?</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-scroll-nav="2" href="#"><i
@@ -59,9 +62,9 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a class="btn-1" type="button" href="{% url 'dashboard' %}">Login<i class="fas
                     fa-sign-in-alt"></i></a>
-                      <div class="toggle-theme">
-                         <i class="fas"></i>
-                      </div>
+                    <div class="toggle-theme">
+                        <i class="fas"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +92,7 @@
                 </div>
                 <div class="col-md-7 order-lg-first">
                     <div class="hero-text">
-                            <img class="d-none d-lg-block" src="{% static 'images/bakerySign.png' %}" height="120" alt="">
+                        <img class="d-none d-lg-block" src="{% static 'images/bakerySign.png' %}" height="120" alt="">
                         <h1>Bread for you business butter</h1>
                         <p>Bread is a bakery management software which lets you manage your business. With Bread, you
                             can now easily have track of your menu items.
@@ -138,9 +141,9 @@
                             <div class="col-sm-6">
                                 <div class="statistics-item style-1">
                                     {% if totalUsers %}
-                                         <h3>{{ totalUsers }}</h3>
+                                    <h3>{{ totalUsers }}</h3>
                                     {% else %}
-                                        <h3>2000</h3>
+                                    <h3>2000</h3>
                                     {% endif %}
 
                                     <span>Users</span>
@@ -148,10 +151,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="statistics-item style-2">
-                                   {% if totalProduct %}
-                                         <h3>{{ totalProduct }}</h3>
+                                    {% if totalProduct %}
+                                    <h3>{{ totalProduct }}</h3>
                                     {% else %}
-                                        <h3>200</h3>
+                                    <h3>200</h3>
                                     {% endif %}
                                     <span>Products</span>
                                 </div>
@@ -361,8 +364,8 @@
                             <i class="fas fa-star"></i>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
     </section>
     <!-- Product Section End -->
 
@@ -422,9 +425,12 @@
     <!-- jquery js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- owl carousel js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"
+        integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- bootstrap bundle with popper -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- ScrollIt js -->
     <script src="https://cdn.jsdelivr.net/npm/scrollit@1.0.5/scrollIt.min.js"></script>
     <!-- main js -->

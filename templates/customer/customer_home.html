@@ -1,0 +1,99 @@
+{% extends 'base/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- special products -->
+<section id="special" class="py-5">
+    <div class="container">
+        <div class="title text-center py-5">
+            <h2>Special Selection</h2>
+        </div>
+
+        <div class="special-list row g-0 justify-content-center">
+            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                <div class="special-img position-relative overflow-hidden">
+                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
+                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
+                        <i class="fas fa-heart"></i>
+                    </span>
+                </div>
+                <div class="text-center">
+                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <span class="fw-bold d-block">$ 45.50</span>
+                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                <div class="special-img position-relative overflow-hidden">
+                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
+                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
+                        <i class="fas fa-heart"></i>
+                    </span>
+                </div>
+                <div class="text-center">
+                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <span class="fw-bold d-block">$ 45.50</span>
+                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                <div class="special-img position-relative overflow-hidden">
+                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
+                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
+                        <i class="fas fa-heart"></i>
+                    </span>
+                </div>
+                <div class="text-center">
+                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <span class="fw-bold d-block">$ 45.50</span>
+                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of special products -->
+
+<!-- collection -->
+<section id="collection" class="py-5">
+    <div class="container">
+        <div class="title text-center">
+            <h2>New Collection</h2>
+        </div>
+
+        <div class="justify-content-center">
+            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
+                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".best">Best Sellers</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".feat">Featured</button>
+                <button type="button" class="btn m-2 text-dark" data-filter=".new">New Arrival</button>
+            </div>
+
+            <div class="collection-list mt-4 row gx-0 gy-3 justify-content-center">
+                {% if products %}
+                {% for product in products %}
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat ">
+                    <div class="collection-img position-relative">
+                        <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img" alt="product">
+                        <span
+                            class="position-absolute bg-primary text-white d-flex align-items-center justify-content-center">sale</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-capitalize mt-3 mb-1">{{ product.name }}</p>
+                        <span class="fw-bold d-block">$ {{ product.price }}</span>
+                        <a href="{% url 'order' product.id %}" class="btn btn-primary mt-3
+                                    card-btn">Order Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <H3>No Products Available</H3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of collection -->
+{% endblock content %}

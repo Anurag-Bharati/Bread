@@ -1,10 +1,11 @@
 <!doctype html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="{% static 'images/donut.png' %}" rel="icon">
     <link href="{% static 'images/donut.png' %}" rel="apple-touch-icon">
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 </head>
+
 <body>
     {% include 'base/sidebar.html' %}
     <div id="right-panel" class="right-panel">
@@ -32,7 +34,7 @@
             </div>
         </div>
         <div class="my-foot"></div>
-       <!-- TODO FOOTER -->
+        <!-- TODO FOOTER -->
     </div>
 
     <!-- Scripts -->
@@ -46,6 +48,6 @@
     {% block script %}
     {% endblock script %}
 
-
 </body>
+
 </html>

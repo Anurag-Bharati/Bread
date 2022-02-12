@@ -23,5 +23,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('auth/', include('users.urls')),
     path('manage/', include('manage.urls')),
+    path('home-page/', include('customer.urls')),
     path('admin/', admin.site.urls),
 ]

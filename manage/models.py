@@ -26,6 +26,7 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=120, unique=True)
     type = models.CharField(max_length=120, unique=False, null=True)
+    price = models.PositiveSmallIntegerField(null=True)
     desc = models.CharField(max_length=200, unique=False, null=True)
     created_date = models.DateField(auto_now_add=True)
 

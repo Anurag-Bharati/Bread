@@ -21,20 +21,20 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-     <!--MESSAGE PANEL-->
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tag == "success" %}
-            <div class="alert alert-success" role="alert">
-                {{ message }}
-            </div>
-            {% elif message.tag == "error" %}
-            <div class="alert alert-danger" role="alert">
-                {{message}}
-            </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+<!--MESSAGE PANEL-->
+{% if messages %}
+{% for message in messages %}
+{% if message.tag == "success" %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% elif message.tag == "error" %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
 <div class="row">
     <div class="col-xl-12" align="center">
         <div class="card">
@@ -43,7 +43,7 @@
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h ">
-                    <div  class="table-responsive">
+                    <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -72,25 +72,26 @@
                                     <td>{{ order.created_date }}</td>
                                     <td>
                                         {% if order.status == 'pending' %}
-                                            <a class="btn btn-warning btn-sm disabled" role="button" href=""
-                                            >{{ order.status }}</a>
+                                        <a class="btn btn-warning btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'decline' %}
-                                            <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status }}</a>
+                                        <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'complete' %}
-                                            <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status }}</a>
+                                        <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'approved' %}
-                                            <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status }}</a>
+                                        <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'bulk' %}
-                                            <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{ order.status }}</a>
+                                        <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{order.status}}</a>
                                         {% else %}
-                                            <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status }}</a>
+                                        <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% endif %}
                                     </td>
 
                                 </tr>
                                 {% endfor %}
                                 {% else %}
-                                    <tr><td>No Order Data</td></tr>
+                                <tr>
+                                    <td>No Order Data</td>
+                                </tr>
                                 {% endif %}
                             </tbody>
                         </table>
@@ -98,8 +99,8 @@
                 </div>
             </div>
         </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
+    </div> <!-- /.col-lg-8 -->
 
-    
+
 </div>
 {% endblock content %}

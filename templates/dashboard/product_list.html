@@ -35,6 +35,7 @@
                                 <th class="serial">#</th>
                                 <th>Name</th>
                                 <th>Type</th>
+                                <th>Price</th>
                                 <th>Description</th>
                                 <th>Date</th>
                             </tr>
@@ -46,20 +47,23 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.type }}</td>
+                                <td>{{ product.price }}</td>
                                 <td>{{ product.desc }}</td>
                                 <td>{{ product.created_date }}</td>
                             </tr>
                             {% endfor %}
                             {% else %}
-                                <tr><td>No Product Data</td></tr>
+                            <tr>
+                                <td>No Product Data</td>
+                            </tr>
                             {% endif %}
                         </tbody>
                     </table>
                 </div> <!-- /.table-stats -->
             </div>
         </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
+    </div> <!-- /.col-lg-8 -->
 
-    
+
 </div>
 {% endblock content %}

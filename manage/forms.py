@@ -84,7 +84,7 @@ class CustomerForm(forms.Form):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'type', 'desc']
+        fields = ['name', 'type', 'price', 'desc']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
@@ -92,9 +92,12 @@ class ProductForm(forms.ModelForm):
             'type': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'type'
             }),
+            'price': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'price'
+            }),
             'desc': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'desc'
-            })
+            }),
         }
 
 

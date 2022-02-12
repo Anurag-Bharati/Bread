@@ -1,0 +1,136 @@
+{% extends 'base/customer_base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+{% endblock head %}
+{% block content %}
+<div class="row" style="margin: 20px 0 0 0 ">
+    <div class="col-xl-12" align="center">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Active Orders</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h ">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>Staff</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if order %}
+                                {% for order in order %}
+                                <tr>
+                                    <td class="serial">{{ forloop.counter }}</td>
+                                    {% if order.staff %}
+                                    <td>{{ order.staff }}</td>
+                                    {% else %}
+                                    <td>Waiting</td>
+                                    {% endif %}
+                                    <td>{{ order.product }}</td>
+                                    <td>{{ order.quantity }}</td>
+                                    <td>{{ order.created_date }}</td>
+                                    <td>
+                                        {% if order.status == 'pending' %}
+                                        <a class="btn btn-warning btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'decline' %}
+                                        <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'complete' %}
+                                        <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'approved' %}
+                                        <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'bulk' %}
+                                        <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{order.status}}</a>
+                                        {% else %}
+                                        <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>No Order Data</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin: 20px 0 20px 0">
+    <div class="col-xl-12" align="center">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Order History</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h ">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>Staff</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if passive_order %}
+                                {% for order in passive_order %}
+                                <tr>
+                                    <td class="serial">{{ forloop.counter }}</td>
+                                    {% if order.staff %}
+                                    <td>{{ order.staff }}</td>
+                                    {% else %}
+                                    <td>Waiting</td>
+                                    {% endif %}
+                                    <td>{{ order.product }}</td>
+                                    <td>{{ order.quantity }}</td>
+                                    <td>{{ order.created_date }}</td>
+                                    <td>
+                                        {% if order.status == 'pending' %}
+                                        <a class="btn btn-warning btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'decline' %}
+                                        <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'complete' %}
+                                        <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'approved' %}
+                                        <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% elif order.status == 'bulk' %}
+                                        <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{order.status}}</a>
+                                        {% else %}
+                                        <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status}}</a>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>No Order Data</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

@@ -42,11 +42,16 @@
                                 {{ form.type }}
                             </div>
                             <div class="form-group">
+                                <label for="price" class="control-label mb-1">Price</label>
+                                {{ form.price }}
+                            </div>
+                            <div class="form-group">
                                 <label for="desc" class="control-label mb-1">Description</label>
                                 {{ form.desc }}
                             </div>
                             <div>
-                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block yellow-btn">
+                                <button id="payment-button" type="submit"
+                                    class="btn btn-lg btn-info btn-block yellow-btn">
                                     <span id="payment-button-amount">Create Product</span>
                                 </button>
                             </div>
@@ -57,6 +62,7 @@
             </div>
         </div> <!-- .card -->
 
-    </div><!--/.col-->
+    </div>
+    <!--/.col-->
 </div>
 {% endblock content %}

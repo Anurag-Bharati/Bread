@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.core.serializers import json
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
@@ -94,6 +93,11 @@ class ProductListView(ListView):
     model = Product
     template_name = 'dashboard/product_list.html'
     context_object_name = 'product'
+
+class GetProduct(ListView):
+    model = Product
+    template_name = 'customer/customer_home.html'
+    context_object_name = 'products'
 
 
 # Order
@@ -235,6 +239,7 @@ class DeliveryListView(ListView):
     model = Delivery
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
+
 
 @login_required(login_url='auth')
 def order_summary(request):
