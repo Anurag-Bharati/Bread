@@ -9,8 +9,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Manage</a></li>
-                        <li><a href="#">Order</a></li>
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'order-list' %}">Order</a></li>
                         <li class="active">Modify</li>
                     </ol>
                 </div>
@@ -23,21 +23,21 @@
 {% block content %}
 <!--MESSAGE PANEL-->
 {% if messages %}
-{% for message in messages %}
-{% if message.tags == "success" %}
-<div class="alert alert-success" role="alert">
-    {{ message }}
-</div>
-{% elif message.tags == "error" %}
-<div class="alert alert-danger" role="alert">
-    {{message}}
-</div>
-{% else %}
-<div class="alert alert-warning" role="alert">
-    {{ message }}
-</div>
-{% endif %}
-{% endfor %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
 {% endif %}
 
 <div class="row">
@@ -77,23 +77,17 @@
                                     <td>{{ order.customer }}</td>
                                     <td>
                                         {% if order.status == 'pending' %}
-                                        <a class="btn btn-warning btn-sm disabled" role="button" href="">{{ order.status
-                                            }}</a>
+                                        <a class="btn btn-warning btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'decline' %}
-                                        <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status
-                                            }}</a>
+                                        <a class="btn btn-danger btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'complete' %}
-                                        <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status
-                                            }}</a>
+                                        <a class="btn btn-success btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'approved' %}
-                                        <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status
-                                            }}</a>
+                                        <a class="btn btn-primary btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% elif order.status == 'bulk' %}
-                                        <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{
-                                            order.status }}</a>
+                                        <a class="btn btn-secondary btn-sm disabled" role="button" href="">{{order.status }}</a>
                                         {% else %}
-                                        <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status
-                                            }}</a>
+                                        <a class="btn btn-info btn-sm disabled" role="button" href="">{{ order.status}}</a>
                                         {% endif %}
                                     </td>
                                     <td><a href="{% url 'edit-order' order.id %}" role="button" class="btn btn-warning

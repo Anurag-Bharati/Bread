@@ -13,6 +13,8 @@ from .forms import StaffForm, CustomerForm, ProductForm, OrderForm, DeliveryForm
 # Staff views
 @login_required(login_url='login')
 def create_staff(request):
+    if not request.user.is_staff:
+        return redirect('products')
     forms = StaffForm()
     if request.method == 'POST':
         forms = StaffForm(request.POST)
@@ -45,6 +47,8 @@ class StaffListView(ListView):
 # Customer
 @login_required(login_url='auth')
 def create_customer(request):
+    if not request.user.is_staff:
+        return redirect('products')
     forms = CustomerForm()
     if request.method == 'POST':
         forms = CustomerForm(request.POST)
@@ -77,12 +81,17 @@ class CustomerListView(ListView):
 # Product
 @login_required(login_url='auth')
 def create_product(request):
+    if not request.user.is_staff:
+        return redirect('products')
     forms = ProductForm()
     if request.method == 'POST':
         forms = ProductForm(request.POST)
         if forms.is_valid():
             forms.save()
+            messages.success(request, 'Product added successfully')
             return redirect('product-list')
+        else:
+            messages.error(request, 'Please, Provide valid data')
     context = {
         'form': forms
     }
@@ -94,15 +103,12 @@ class ProductListView(ListView):
     template_name = 'dashboard/product_list.html'
     context_object_name = 'product'
 
-class GetProduct(ListView):
-    model = Product
-    template_name = 'customer/customer_home.html'
-    context_object_name = 'products'
-
 
 # Order
 @login_required(login_url='auth')
 def create_order(request):
+    if not request.user.is_staff:
+        return redirect('products')
     forms = OrderForm()
     if request.method == 'POST':
         forms = OrderForm(request.POST)
@@ -122,10 +128,14 @@ def create_order(request):
                 customer=customer,
                 status='pending'
             )
+            messages.success(request, 'Order added successfully')
             return redirect('order-list')
+        else:
+            messages.error(request, 'Please, Provide valid data.')
     context = {
         'form': forms
     }
+
     return render(request, 'dashboard/create_order.html', context)
 
 
@@ -149,9 +159,10 @@ class ModifyOrder(ListView):
         return context
 
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='/auth')
 def edit_order(request, id):
+    if not request.user.is_staff:
+        return redirect('products')
     order = Order.objects.get(pk=id)
     if request.method == 'GET':
         forms = EditOrderForm(initial={
@@ -172,6 +183,7 @@ def edit_order(request, id):
         forms = EditOrderForm(request.POST)
         if not forms.is_valid():
             context = {'form': forms}
+            messages.error(request, 'Please, Provide valid data.')
             return render(request, 'dashboard/edit-order.html', context)
 
         staff = forms.cleaned_data['staff']
@@ -204,35 +216,42 @@ def edit_order(request, id):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='/auth')
 def delete_order(request, id):
+    if not request.user.is_staff:
+        return redirect('products')
     order = Order.objects.get(pk=id)
     order.delete()
-    messages.success(request, 'Order removed')
+    messages.success(request, 'Order removed successfully')
     return redirect('modify-order')
 
 # Delivery
 @login_required(login_url='auth')
 def create_delivery(request):
-
+    if not request.user.is_staff:
+        return redirect('products')
     if request.method == 'POST':
         forms = DeliveryForm(request.POST)
+        context = {'form': forms}
         if not forms.is_valid():
-            context = {'form': forms}
             return render(request, 'dashboard/create_delivery.html', context)
 
         order = forms.cleaned_data['order']
         if order.status == 'complete':
             messages.error(request, "Can not deliver already delivered item")
-            return redirect('delivery-list')
+            return render(request, 'dashboard/create_delivery.html', context)
         elif order.status == 'decline':
             messages.error(request, "Can not deliver declined item")
-            return redirect('delivery-list')
+            return render(request, 'dashboard/create_delivery.html', context)
 
         order.status = "complete"
         order.save()
         forms.save()
         messages.success(request, "Order successfully delivered")
         return redirect('delivery-list')
-    return redirect('delivery-list')
+    forms = DeliveryForm(request.GET)
+    context = {
+        'form': forms
+    }
+    return render(request, 'dashboard/create_delivery.html', context)
 
 
 class DeliveryListView(ListView):

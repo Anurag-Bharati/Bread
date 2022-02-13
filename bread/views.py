@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from manage.models import Product, Staff, Customer, Order
 
 @login_required(login_url='auth')
 def dashboard(request):
+    if not request.user.is_staff:
+        return redirect('products')
     total_product = Product.objects.count()
     total_staff = Staff.objects.count()
     total_customer = Customer.objects.count()

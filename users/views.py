@@ -127,8 +127,9 @@ def login(request):
             return render(request, 'signInUp.html', context)
 
     auth.login(request, user)
-    return redirect('dashboard')
-
+    if request.user.is_staff:
+        return redirect('dashboard')
+    return redirect('home-page')
 
 def signup(request):
     context = {
@@ -167,7 +168,6 @@ def signup(request):
         user.is_admin = False
         user.is_customer = True
         user.save()
-
         Customer.objects.create(user=user, name=username, address=address)
 
         current_site = get_current_site(request).domain

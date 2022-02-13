@@ -9,8 +9,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Manage</a></li>
-                        <li><a href="#">Customer</a></li>
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'create-customer' %}">Customer</a></li>
                         <li class="active">List</li>
                     </ol>
                 </div>
@@ -21,6 +21,24 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+    <!--MESSAGE PANEL-->
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <div class="row">
     <div class="col-xl-12" align="center">
         <div class="card">

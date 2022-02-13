@@ -9,8 +9,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Manage</a></li>
-                        <li><a href="#">Order</a></li>
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'create-order' %}">Order</a></li>
                         <li class="active">List</li>
                     </ol>
                 </div>
@@ -23,17 +23,17 @@
 {% block content %}
 <!--MESSAGE PANEL-->
 {% if messages %}
-{% for message in messages %}
-{% if message.tag == "success" %}
-<div class="alert alert-success" role="alert">
-    {{ message }}
-</div>
-{% elif message.tag == "error" %}
-<div class="alert alert-danger" role="alert">
-    {{message}}
-</div>
-{% endif %}
-{% endfor %}
+    {% for message in messages %}
+        {% if message.tag == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tag == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+    {% endfor %}
 {% endif %}
 <div class="row">
     <div class="col-xl-12" align="center">
