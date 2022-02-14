@@ -2,66 +2,112 @@
 {% load static %}
 
 {% block content %}
-<!-- special products -->
-<section id="special" class="py-5">
-    <div class="container">
-        <div class="title text-center py-5">
-            <h2>Special Selection</h2>
+	 <!-- Preloader Start -->
+    <div class="preloader">
+        <span></span>
+    </div>
+    <!-- Preloader End -->
+	<section class="hero d-flex align-items-center justify-content-center" id="hero" data-scroll-index="0">
+        <div class="effect-wrap">
+            <i class="fas fa-plus effect effect-1"></i>
+            <i class="fas fa-plus effect effect-2"></i>
+            <i class="fa fa-coffee effect effect-3"></i>
+            <i class="fas fa-circle effect effect-4"></i>
+            <i class="fa fa-birthday-cake effect effect-5"></i>
+            <i class="fa fa-heart effect effect-6"></i>
+
         </div>
+        <div class="container" style="margin: 0">
+            <div class="row align-items-center">
+                <div class="container">
+        <div class="section-title">
+			<br>
+			<h2>Special<span> Products</span></h2>
+		</div>
 
         <div class="special-list row g-0 justify-content-center">
-            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden s1">
+            <div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+                <div class="special-img position-relative overflow-hidden ">
                     <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-
+					<span class="position-absolute  text-white d-flex align-items-center
+                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+                            fa-fire" ></i></span>
                 </div>
                 <div class="text-center">
                     <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden s2">
-                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
+            <div class="col-lg-4 col-xl-3 p-2 feat-2 s2">
+                <div class="special-img position-relative overflow-hidden ">
+                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img"/>
+					<span class="position-absolute  text-white d-flex align-items-center
+                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+                            fa-fire" ></i></span>
                 </div>
                 <div class="text-center">
                     <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden s3">
+            <div class="col-lg-4 col-xl-3 p-2 feat-2 s3">
+                <div class="special-img position-relative overflow-hidden ">
                     <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-
+					<span class="position-absolute  text-white d-flex align-items-center
+                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+                            fa-fire " ></i></span>
                 </div>
                 <div class="text-center">
                     <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
+                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<!-- end of special products -->
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!--Amenities -->
+    <section class="amenities">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3"><i class="fa fa-coffee"></i>Cafe</div>
+                <div class="col-6 col-md-3"><i class="fa fa-birthday-cake"></i>Cake</div>
+                <div class="col-6 col-md-3"><i class="fa fa-heart"></i>Love</div>
+                <div class="col-6 col-md-3"><i class="fa fa-gift"></i>Gift</div>
+            </div>
+        </div>
+    </section>
+
+	<section class="product-bar">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="section-title">
+                        <h2>Explore<span> Items</span></h2>
+                    </div>
+            </div>
+        </div>
+    </section>
 
 <!-- collection -->
-<section id="collection" class="py-5">
+<section id="collection" class="py-5" >
     <div class="container">
-        <div class="title text-center">
-            <h2>Our Products</h2>
-        </div>
 
         <div class="justify-content-center">
             <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-                <button type="button" class="btn m-2 text-dark active-filter-btn" data-filter="*">All</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".best">Best Sellers</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".feat">Featured</button>
-                <button type="button" class="btn m-2 text-dark" data-filter=".new">New Arrival</button>
+                <button type="button" class="btn btn-primary m-2 text-dark active-filter-btn" >All</button>
+                <button type="button" class="btn btn-primary m-2 text-dark" >Best Sellers</button>
+                <button type="button" class="btn btn-primary m-2 text-dark">Featured</button>
+                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
+                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
+                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
             </div>
 
             <div class="collection-list mt-4 row gx-0 gy-3 justify-content-center">
@@ -77,8 +123,8 @@
                     <div class="text-center">
                         <p class="text-capitalize mt-3 mb-1">{{ product.name }}</p>
                         <span class="fw-bold d-block">$ {{ product.price }}</span>
-                        <a href="{% url 'order' product.id %}" class="btn btn-primary mt-3
-                                    card-btn">Order Now</a>
+                        <a href="{% url 'order' product.id %}" class="btn mt-3
+                                    card-btn btn-primary">Order Now</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -88,6 +134,7 @@
             </div>
         </div>
     </div>
-</section>
+	</section>
+{% include 'base/paginator.html' %}
 <!-- end of collection -->
 {% endblock content %}

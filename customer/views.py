@@ -31,7 +31,6 @@ def order(request, id):
         }
         if product and product.price is not None:
             context['product'] = product
-
         return render(request, 'customer/order.html', context)
 
     elif request.method == 'POST':
@@ -97,6 +96,7 @@ class GetProduct(ListView):
     model = Product
     template_name = 'customer/customer_home.html'
     context_object_name = 'products'
+    paginate_by = 1
 
 def logout(request):
     if request.method == 'POST':

@@ -12,6 +12,7 @@ def dashboard(request):
     total_customer = Customer.objects.count()
     total_oder = Order.objects.count()
     orders = Order.objects.all().order_by('-id')
+    orders = orders.filter(status__exact='pending')
     context = {
         'product': total_product,
         'staff': total_staff,

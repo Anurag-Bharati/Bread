@@ -29,7 +29,9 @@
             $(".toggle-theme i").removeClass("fa-moon");
             $(".toggle-theme i").addClass("fa-sun");
         } else {
+
             $(".toggle-theme i").removeClass("fa-sun");
             $(".toggle-theme i").addClass("fa-moon");
         }
     }
+

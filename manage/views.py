@@ -42,6 +42,7 @@ class StaffListView(ListView):
     model = Staff
     template_name = 'dashboard/staff_list.html'
     context_object_name = 'staff'
+    paginate_by = 1
 
 
 # Customer
@@ -76,6 +77,7 @@ class CustomerListView(ListView):
     model = Customer
     template_name = 'dashboard/customer_list.html'
     context_object_name = 'customer'
+    paginate_by = 1
 
 
 # Product
@@ -112,6 +114,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'dashboard/product_list.html'
     context_object_name = 'product'
+    paginate_by = 1
 
 
 # Order
@@ -152,21 +155,17 @@ def create_order(request):
 class OrderListView(ListView):
     model = Order
     template_name = 'dashboard/order_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['order'] = Order.objects.all().order_by('-id')
-        return context
+    paginate_by = 1
+    context_object_name = 'order'
+    ordering = '-id'
 
 
 class ModifyOrder(ListView):
     model = Order
     template_name = 'dashboard/modify_order.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['order'] = Order.objects.all().order_by('-id')
-        return context
+    paginate_by = 1
+    context_object_name = 'order'
+    ordering = '-id'
 
 
 @login_required(login_url='/auth')
@@ -223,6 +222,7 @@ def edit_order(request, id):
         messages.success(request, 'Order updated  successfully')
         return redirect('modify-order')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='/auth')
 def delete_order(request, id):
@@ -232,6 +232,7 @@ def delete_order(request, id):
     order.delete()
     messages.success(request, 'Order removed successfully')
     return redirect('modify-order')
+
 
 # Delivery
 @login_required(login_url='auth')
@@ -268,6 +269,7 @@ class DeliveryListView(ListView):
     model = Delivery
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
+    paginate_by = 1
 
 
 @login_required(login_url='auth')
