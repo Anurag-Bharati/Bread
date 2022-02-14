@@ -84,9 +84,19 @@ def create_product(request):
     if not request.user.is_staff:
         return redirect('products')
     forms = ProductForm()
+
     if request.method == 'POST':
-        forms = ProductForm(request.POST)
+        forms = ProductForm(request.POST, request.FILES)
+        name = request.POST['name']
+
+        if Product.objects.filter(name__exact=name):
+            context = {
+                'form': forms
+            }
+            messages.error(request, "Product named '" + name + "' already exists")
+            return render(request, 'dashboard/create_product.html', context)
         if forms.is_valid():
+            print(request.FILES)
             forms.save()
             messages.success(request, 'Product added successfully')
             return redirect('product-list')

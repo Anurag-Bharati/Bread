@@ -5,7 +5,7 @@ from django.contrib import messages, auth
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 
-from manage.forms import OrderForm
+from manage.forms import OrderForm, CustomerForm
 from manage.models import Product, Customer, Order
 
 
@@ -111,3 +111,49 @@ def my_profile(request):
         'total_order': Order.objects.filter(customer=request.user.customer.id).count()
     }
     return render(request, 'customer/my-profile.html', context)
+
+@login_required(login_url='/auth')
+def edit_profile(request):
+    if request.user.is_staff:
+        return redirect('dashboard')
+    customer = Customer.objects.get(pk=request.user.customer.id)
+    if request.method == 'GET':
+        forms = CustomerForm(initial={
+            'name': customer.name,
+            'address': customer.address,
+            'email': customer.user.email,
+            'username': customer.user.username,
+            'image': customer.profile_pic.url,
+        })
+        context = {
+            'form': forms
+        }
+        return render(request, 'customer/update_profile.html', context)
+
+    elif request.method == 'POST':
+        forms = CustomerForm(request.POST, request.FILES)
+
+        name = request.POST['name']
+        address = request.POST['address']
+        email = request.POST['email']
+        username = request.POST['username']
+        image = request.FILES['image']
+
+        if name and name != customer.name:
+            if Customer.objects.filter(name__exact=name):
+                context = {'form': forms}
+                messages.error(request, 'The name is already taken.')
+                return render(request, 'customer/update_profile.html', context)
+            customer.name = name
+        if address and address != customer.address:
+            customer.address = address
+        if email and email != customer.user.email:
+            customer.user.email = email
+        if username and username != customer.user.username:
+            customer.user.username = username
+        if image and image != customer.profile_pic:
+            customer.profile_pic = image
+
+        customer.save()
+        messages.success(request, 'Profile updated  successfully')
+        return redirect('customer-profile')

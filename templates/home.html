@@ -49,11 +49,14 @@
                                 class="fas fa-home me-2"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-scroll-nav="1" href="#"><i class="fas fa-th-large me-2"></i>How it
+                        <a class="nav-link" data-scroll-nav="1" href="#stats"><i class="fas fa-th-large me-2"></i>Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-scroll-nav="2" href="#how"><i class="fas fa-th-large me-2"></i>How it
                             works?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-scroll-nav="2" href="#"><i
+                        <a class="nav-link" data-scroll-nav="3" href="#products"><i
                                 class="fas fa-th-large me-2"></i>Products</a>
                     </li>
 
@@ -122,7 +125,7 @@
     <!-- /Amenities -->
 
     <!-- Stats -->
-    <section class="statistics section-padding" id="stats">
+    <section class="statistics section-padding" id="stats" data-scroll-index="1" >
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-5 d-flex align-items-center justify-content-center">
@@ -180,8 +183,8 @@
     <!-- Stats -->
 
     <!-- How It Works Section Start -->
-    <section class="how-it-works section-padding" id="how">
-        <div class="container">
+    <section class="how-it-works section-padding" id="how" data-scroll-index="2" >
+        <div class="container" >
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title">
@@ -225,7 +228,7 @@
     <!-- How It Works Section End -->
 
     <!-- Testimonials Section Start -->
-    <section class="product section-padding" id="products" data-scroll-index="2">
+    <section class="product section-padding" id="products" data-scroll-index="3">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -423,7 +426,8 @@
     <!-- /Footer -->
 
     <!-- jquery js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <!-- owl carousel js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"
         integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg=="
@@ -433,6 +437,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- ScrollIt js -->
     <script src="https://cdn.jsdelivr.net/npm/scrollit@1.0.5/scrollIt.min.js"></script>
+
     <!-- main js -->
     <script src="{% static 'js/home.js' %}"></script>
     <script src="{% static 'js/dark_mode.js' %}"></script>

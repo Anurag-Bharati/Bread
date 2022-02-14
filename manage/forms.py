@@ -67,6 +67,9 @@ class CustomerForm(forms.Form):
         'data-val': 'true',
         'data-val-required': 'Please enter username',
     }))
+    image = forms.FileInput(attrs={
+        'class': 'form-control-file', 'id': 'image'
+    }),
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'id': 'password',
@@ -84,7 +87,7 @@ class CustomerForm(forms.Form):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'type', 'price', 'desc']
+        fields = ['name', 'type', 'price', 'desc', 'image']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
@@ -97,6 +100,9 @@ class ProductForm(forms.ModelForm):
             }),
             'desc': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'desc'
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control-file', 'id': 'image'
             }),
         }
 
@@ -113,7 +119,7 @@ class OrderForm(forms.ModelForm):
                 'class': 'form-control', 'id': 'staff'
             }),
             'product': forms.Select(attrs={
-                'class': 'form-control', 'id': 'product'
+                       'class': 'form-control', 'id': 'product'
             }),
             'quantity': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'quantity'

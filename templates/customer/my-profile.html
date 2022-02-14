@@ -26,6 +26,10 @@
             <div class="card-header">
                 <h4 class="card-title">My Profile</h4>
             </div>
+			<div align="right">
+				<a class="btn btn-sm btn-secondary" href="{% url 'update-profile' %}" style="margin: 10px 10px 10px 0
+">Update Profile</a>
+			</div>
             <div class="card-body">
                 <div id="pay-invoice">
                     <div class="card-body">
@@ -33,7 +37,7 @@
                                 <div class="col-md-6 align-self-center justify-content-center ">
                                     <div class="form-group row align-items-center justify-content-center"
                                         style="margin: 0; padding: 0">
-                                        <img src="{% static 'images/dark_bread_pattern.png' %}" class="
+                                        <img src="{% static user.customer.profile_pic.url %}" class="
                                         product-img" alt="product"/>
 
                                     </div>

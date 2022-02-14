@@ -10,6 +10,7 @@ urlpatterns = [
     path('order/<int:id>', views.order, name="order"),
     path('my-plate/', views.my_plate, name="my-plate"),
     path('profile/', views.my_profile, name="customer-profile"),
+    path('update-profile/', views.edit_profile, name="update-profile"),
 
 
 ]

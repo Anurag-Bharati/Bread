@@ -3,15 +3,52 @@
 :root{
     --lg-font: 'Kaisei Tokumin', serif;
     --sm-font: 'Poppins', sans-serif;
-    --pink: #e5345b;
+
 }
 body{
     font-family: var(--sm-font);
+    background-image: url("../images/bread_pattern.png");
+    animation: animate 30s linear infinite;
+}
+.dark{
+    background-image: url("../images/dark_bread_pattern.png");
+    animation: animate 30s linear infinite;
+}
+
+.toggle-theme {
+    display: inherit;
+    position: relative;
+    margin-left: 10px;
+    height: 30px;
+    width: 30px;
+    background-color: #8bc34a;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+.toggle-theme:hover{
+    background-color: #6a9d2f;
+}
+
+.toggle-theme i {
+    line-height: 40px;
+}
+
+
+@keyframes animate {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 740px;
+    }
 }
 
 /* button */
 .bg-primary{
-    background-color: var(--pink)!important;
+    background-color: #F3C969 !important;
 }
 
 .card-btn{
@@ -30,7 +67,7 @@ body{
 
 /* text color */
 .text-primary{
-    color: var(--pink)!important;
+    color: #F3C969 !important;
 }
 
 /* navbar */
@@ -54,7 +91,7 @@ body{
     border-color: #fff!important;
 }
 .carousel-item .btn:hover{
-    border-color: var(--pink)!important;
+    border-color: #F3C969 !important;
 }
 
 /* title */
@@ -63,7 +100,7 @@ body{
     content: "";
     width: 4px;
     height: 50px;
-    background-color: var(--pink);
+    background-color: #F3C969;
     left: -20px;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -73,9 +110,9 @@ body{
 
 /* collection */
 .active-filter-btn{
-    background-color: var(--pink)!important;
+    background-color: #F3C969 !important;
     color: #fff!important;
-    border-color: var(--pink)!important;
+    border-color: #F3C969 !important;
 }
 .filter-button-group .btn:hover{
     color: #fff!important;
@@ -84,8 +121,8 @@ body{
     top: 20px;
     right: 20px;
     width: 46px;
-    height: 46px;
-    border-radius: 50%;
+    height: 30px;
+    border-radius: 10%;
 }
 
 /* special */
@@ -97,22 +134,99 @@ body{
     padding: 8px 20px!important;
 }
 .special-img img{
+    border: solid transparent;
+    border-radius: 10%;
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+.s1{
+    border: solid transparent;
+    border-radius: 10%;
+    animation: pulse 3s cubic-bezier(1,0,0,1) infinite;
+}
+.s2{
+    border: solid transparent;
+    border-radius: 10%;
+    animation: pulse 3s 0.1s cubic-bezier(1,0,0,1) infinite;
+}
+.s3{
+    border: solid transparent;
+    border-radius: 10%;
+    animation: pulse 3s 0.15s cubic-bezier(1,0,0,1) infinite;
+}
+
 .special-img:hover img{
     -webkit-transform: scale(1.2);
         -ms-transform: scale(1.2);
-            transform: scale(1.2);
+            transform: scale(1.1);
+}
+.special-img img ~ .text-primary{
+    animation: scale 2s ease infinite;
+
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.special-img:hover img ~ .text-primary{
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
+}
+.animated-btn{
+    animation: pulse2 2s ease infinite;
+
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+    70% {
+        transform: scale(0.96);
+        box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0);
+    }
+}
+@keyframes pulse2 {
+    0% {
+        transform: scale(0.90);
+        box-shadow: 0 0 0 0 rgba(243, 201, 105, 0.7);
+    }
+    70% {
+        transform: scale(1);
+    box-shadow: 0 0 5px 10px rgba(243, 201, 105, 0.0);
+    }
+    100% {
+        transform: scale(0.90);
+        box-shadow: 0 0 0 0 rgba(243, 201, 105, 0.0);
+    }
+}
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .product-img{
+    height: 250px;
+    object-fit: cover;
     border-radius: 10px;
     border: 1px solid transparent;
 }
 
+
 .feat{
+    background-color: #fff;
     border-radius: 10px;
     margin: 30px;
     box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);

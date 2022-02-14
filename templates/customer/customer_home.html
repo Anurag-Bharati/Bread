@@ -11,42 +11,35 @@
 
         <div class="special-list row g-0 justify-content-center">
             <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden">
+                <div class="special-img position-relative overflow-hidden s1">
                     <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
-                        <i class="fas fa-heart"></i>
-                    </span>
+
                 </div>
                 <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
                     <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden">
+                <div class="special-img position-relative overflow-hidden s2">
                     <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
-                        <i class="fas fa-heart"></i>
-                    </span>
                 </div>
                 <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
                     <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
                 </div>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                <div class="special-img position-relative overflow-hidden">
+                <div class="special-img position-relative overflow-hidden s3">
                     <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-                    <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
-                        <i class="fas fa-heart"></i>
-                    </span>
+
                 </div>
                 <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">gray shirt</p>
+                    <p class="text-capitalize mt-3 mb-1">text</p>
                     <span class="fw-bold d-block">$ 45.50</span>
                     <a href="#" class="btn btn-primary mt-3 card-btn">Add to Cart</a>
                 </div>
@@ -75,10 +68,11 @@
                 {% if products %}
                 {% for product in products %}
                 <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat ">
-                    <div class="collection-img position-relative">
-                        <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img" alt="product">
+                    <div class="collection-img position-relative product-img-holder">
+                        <img src="{% static product.image.url %}" class="w-100 product-img" alt="product">
                         <span
-                            class="position-absolute bg-primary text-white d-flex align-items-center justify-content-center">sale</span>
+                            class="position-absolute bg-primary text-white d-flex align-items-center
+                            justify-content-center animated-btn">sale</span>
                     </div>
                     <div class="text-center">
                         <p class="text-capitalize mt-3 mb-1">{{ product.name }}</p>
