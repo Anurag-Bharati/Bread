@@ -17,7 +17,7 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120, unique=True)
     address = models.CharField(max_length=220)
-    profile_pic = models.ImageField(null=True, default="../default_customer.png")
+    image = models.ImageField(null=True, default="../default_customer.png")
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -25,11 +25,12 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=120, unique=True)
+    name = models.CharField(max_length=120, unique=False)
     type = models.CharField(max_length=120, unique=False, null=True)
     price = models.PositiveSmallIntegerField(null=True)
     image = models.ImageField(null=True, default="../default_product.png")
     desc = models.CharField(max_length=200, unique=False, null=True)
+    is_featured = models.BooleanField(null=True, default=False)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):

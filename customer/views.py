@@ -5,7 +5,7 @@ from django.contrib import messages, auth
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 
-from manage.forms import OrderForm, CustomerForm
+from manage.forms import OrderForm, CustomerForm, CustomerUpdateForm
 from manage.models import Product, Customer, Order
 
 
@@ -16,10 +16,10 @@ def home_page(request):
 
     return redirect('products')
 
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='auth')
 def order(request, id):
-
     if request.user.is_staff:
         return redirect('dashboard')
     if request.method == 'GET':
@@ -67,6 +67,7 @@ def order(request, id):
         )
         return redirect('my-plate')
 
+
 @login_required(login_url='auth')
 def my_plate(request):
     if request.user.is_staff:
@@ -82,7 +83,6 @@ def my_plate(request):
         declined = orders.filter(status__exact='decline')
 
         active_orders = pending | approved | processing
-
         passive_orders = complete | declined
 
         context = {
@@ -92,11 +92,33 @@ def my_plate(request):
 
         return render(request, 'customer/my_orders.html', context)
 
+
 class GetProduct(ListView):
     model = Product
     template_name = 'customer/customer_home.html'
-    context_object_name = 'products'
     paginate_by = 1
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        filter_val = self.request.GET.get('name_contains', None)
+        if filter_val == 'featured':
+            new_context = Product.objects.filter(is_featured__exact=True)
+        elif filter_val == 'new':
+            new_context = Product.objects.all().order_by('-id')
+        elif filter_val and not filter_val == '#' and not str(filter_val).lower() == 'all':
+            new_context = Product.objects.filter(
+                name__icontains=filter_val,
+            )
+        else:
+            new_context = Product.objects.all()
+        return new_context
+
+    def get_context_data(self, **kwargs):
+        context = super(GetProduct, self).get_context_data(**kwargs)
+        context['filter'] = self.request.GET.get('name_contains', None)
+        context['search'] = self.request.GET.get('name_contains', None)
+        return context
+
 
 def logout(request):
     if request.method == 'POST':
@@ -112,18 +134,17 @@ def my_profile(request):
     }
     return render(request, 'customer/my-profile.html', context)
 
+
 @login_required(login_url='/auth')
 def edit_profile(request):
     if request.user.is_staff:
         return redirect('dashboard')
     customer = Customer.objects.get(pk=request.user.customer.id)
     if request.method == 'GET':
-        forms = CustomerForm(initial={
+        forms = CustomerUpdateForm(initial={
             'name': customer.name,
             'address': customer.address,
-            'email': customer.user.email,
-            'username': customer.user.username,
-            'image': customer.profile_pic.url,
+            'image': customer.image
         })
         context = {
             'form': forms
@@ -131,28 +152,23 @@ def edit_profile(request):
         return render(request, 'customer/update_profile.html', context)
 
     elif request.method == 'POST':
-        forms = CustomerForm(request.POST, request.FILES)
-
+        forms = CustomerForm(request.POST)
         name = request.POST['name']
         address = request.POST['address']
-        email = request.POST['email']
-        username = request.POST['username']
-        image = request.FILES['image']
 
         if name and name != customer.name:
             if Customer.objects.filter(name__exact=name):
-                context = {'form': forms}
-                messages.error(request, 'The name is already taken.')
-                return render(request, 'customer/update_profile.html', context)
+                messages.error(request, 'Name ' + name + ' is already taken.')
+                return redirect('update-profile')
             customer.name = name
+
+        if request.FILES['image']:
+            image = request.FILES['image']
+            if image and image != customer.image:
+                customer.image = image
+
         if address and address != customer.address:
             customer.address = address
-        if email and email != customer.user.email:
-            customer.user.email = email
-        if username and username != customer.user.username:
-            customer.user.username = username
-        if image and image != customer.profile_pic:
-            customer.profile_pic = image
 
         customer.save()
         messages.success(request, 'Profile updated  successfully')

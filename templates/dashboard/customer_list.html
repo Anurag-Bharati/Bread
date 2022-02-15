@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block title %}Customer List{% endblock title %}
 
@@ -51,6 +52,7 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
+                                <th>Picture</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Email</th>
@@ -62,6 +64,12 @@
                             {% for c in customer %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
+								<td class="">
+										<img style="margin: 0; padding: 0; height: 45px; width: 45px; object-fit: cover"
+											 src=
+												"{% static c.image.url %}" alt=
+												"{{ c.name }}"/>
+									</td>
                                 <td>{{ c.name }}</td>
                                 <td>{{ c.address }}</td>
                                 <td>{{ c.user.email }}</td>

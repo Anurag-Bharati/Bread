@@ -405,6 +405,22 @@ Amenities Section
     color: #111 !important;
 }
 
+.search-bar{
+    border: solid 2px #F3C969 !important;
+}
+.search-bar-btn:hover i{
+    animation: spin 1s ease infinite;
+}
+.search-bar-btn i{
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}
+.hidden {
+    display: none;
+    position: absolute;
+}
 
 /* collection */
 .active-filter-btn{

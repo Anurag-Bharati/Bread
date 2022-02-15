@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import create_staff, create_customer, create_product, create_order, create_delivery, \
     edit_order, StaffListView, CustomerListView, ProductListView, OrderListView, DeliveryListView, \
-    ModifyOrder, delete_order, order_summary
+    ModifyOrder, delete_order, order_summary, ModifyProduct, edit_product, delete_product
 
 urlpatterns = [
 
@@ -22,8 +22,13 @@ urlpatterns = [
 
     # MODIFY
     path('modify-order/', ModifyOrder.as_view(), name='modify-order'),
+    path('modify-product/', ModifyProduct.as_view(), name='modify-product'),
+
     path('edit-order/<int:id>', edit_order, name='edit-order'),
+    path('edit-product/<int:id>', edit_product, name='edit-product'),
+
     path('delete-order/<int:id>', delete_order, name='delete-order'),
+    path('delete-product/<int:id>', delete_product, name='delete-product'),
 
     # MISC
     path('order-summary/', order_summary, name='order-summary')

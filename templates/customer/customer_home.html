@@ -95,19 +95,36 @@
             </div>
         </div>
     </section>
-
 <!-- collection -->
-<section id="collection" class="py-5" >
+<section id="collection" class="py-4" >
     <div class="container">
-
         <div class="justify-content-center">
             <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-                <button type="button" class="btn btn-primary m-2 text-dark active-filter-btn" >All</button>
-                <button type="button" class="btn btn-primary m-2 text-dark" >Best Sellers</button>
-                <button type="button" class="btn btn-primary m-2 text-dark">Featured</button>
-                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
-                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
-                <button type="button" class="btn btn-primary m-2 text-dark">New Arrival</button>
+				<form class="input-group px-4 m-2" action="#collection" href="{% url 'products' %}" method="get">
+					<input class="form-control py-2 search-bar" type="search" name="name_contains"
+						   {% if search %}value="{{ search }}"{% endif %}
+						   placeholder="Product name" />
+					<span class="input-group-append">
+						<button class="input-group-text btn bg-transparent search-bar search-bar-btn" type="submit">
+							<i class="fa fa-search search-bar-icon" style="color:#F3C969 !important;"></i>
+						</button>
+					</span>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="all">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >All</button>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="featured">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >Featured</button>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="new">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >New Arrivals</button>
+				</form>
             </div>
 
             <div class="collection-list mt-4 row gx-0 gy-3 justify-content-center">
@@ -129,7 +146,9 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <H3>No Products Available</H3>
+					<div class=" bg-white p-2 align-items-center justify-content-center"> <H3>No Products
+					Available</H3></div>
+
                 {% endif %}
             </div>
         </div>

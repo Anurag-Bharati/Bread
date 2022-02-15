@@ -167,6 +167,13 @@ class ModifyOrder(ListView):
     context_object_name = 'order'
     ordering = '-id'
 
+class ModifyProduct(ListView):
+    model = Product
+    template_name = 'dashboard/modify_product.html'
+    paginate_by = 1
+    context_object_name = 'products'
+    ordering = '-id'
+
 
 @login_required(login_url='/auth')
 def edit_order(request, id):
@@ -233,6 +240,75 @@ def delete_order(request, id):
     messages.success(request, 'Order removed successfully')
     return redirect('modify-order')
 
+
+@login_required(login_url='/auth')
+def edit_product(request, id):
+    if not request.user.is_staff:
+        return redirect('products')
+    product = Product.objects.get(pk=id)
+    if request.method == 'GET':
+        forms = ProductForm(initial={
+            'name': product.name,
+            'type': product.type,
+            'price': product.price,
+            'desc': product.desc,
+            'image': product.image.url,
+            'is_featured': product.is_featured,
+        })
+        context = {
+            'form': forms
+        }
+        return render(request, 'dashboard/edit-product.html', context)
+
+    elif request.method == 'POST':
+        forms = ProductForm(request.POST, request.FILES)
+        if not forms.is_valid():
+            context = {'form': forms}
+            messages.error(request, 'Please, Provide valid form data')
+            return render(request, 'dashboard/edit-product.html', context)
+
+        name = request.POST['name']
+        if name and not product.name == name:
+            product.name = name
+
+        type = request.POST['type']
+        if type and product.type != type:
+            product.type = type
+
+        price = request.POST['price']
+        if price and product.price != price:
+            product.price = price
+
+        desc = request.POST['desc']
+        if desc and product.desc != desc:
+            product.desc = desc
+
+        image = request.FILES.get('image', None)
+
+        if image and product.image.name != image.name:
+            product.image = image
+
+        is_featured = request.POST['is_featured']
+        if is_featured and product.is_featured != is_featured:
+            if is_featured == 'true':
+                product.is_featured = True
+            else:
+                product.is_featured = False
+
+        product.save()
+        messages.success(request, 'Product updated  successfully')
+        return redirect('modify-product')
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='/auth')
+def delete_product(request, id):
+    if not request.user.is_staff:
+        return redirect('products')
+    product = Product.objects.get(pk=id)
+    product.delete()
+    messages.success(request, 'Product removed successfully')
+    return redirect('modify-product')
 
 # Delivery
 @login_required(login_url='auth')
