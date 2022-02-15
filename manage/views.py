@@ -1,4 +1,7 @@
+import threading
+
 from django.contrib import messages
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
@@ -167,6 +170,7 @@ class ModifyOrder(ListView):
     context_object_name = 'order'
     ordering = '-id'
 
+
 class ModifyProduct(ListView):
     model = Product
     template_name = 'dashboard/modify_product.html'
@@ -254,6 +258,7 @@ def edit_product(request, id):
             'desc': product.desc,
             'image': product.image.url,
             'is_featured': product.is_featured,
+            'is_special': product.is_special,
         })
         context = {
             'form': forms
@@ -295,6 +300,13 @@ def edit_product(request, id):
             else:
                 product.is_featured = False
 
+        is_special = request.POST['is_special']
+        if is_special and product.is_special != is_special:
+            if is_special == 'true':
+                product.is_special = True
+            else:
+                product.is_special = False
+
         product.save()
         messages.success(request, 'Product updated  successfully')
         return redirect('modify-product')
@@ -310,6 +322,7 @@ def delete_product(request, id):
     messages.success(request, 'Product removed successfully')
     return redirect('modify-product')
 
+
 # Delivery
 @login_required(login_url='auth')
 def create_delivery(request):
@@ -319,19 +332,39 @@ def create_delivery(request):
         forms = DeliveryForm(request.POST)
         context = {'form': forms}
         if not forms.is_valid():
+            messages.error(request, 'Please, Provide valid form data')
             return render(request, 'dashboard/create_delivery.html', context)
 
         order = forms.cleaned_data['order']
+
         if order.status == 'complete':
             messages.error(request, "Can not deliver already delivered item")
             return render(request, 'dashboard/create_delivery.html', context)
         elif order.status == 'decline':
             messages.error(request, "Can not deliver declined item")
             return render(request, 'dashboard/create_delivery.html', context)
-
+        staff = Staff.objects.get(id=request.POST['staff'])
         order.status = "complete"
+        delivery = Delivery()
+        delivery.order = forms.cleaned_data['order']
+        delivery.staff = forms.cleaned_data['staff']
+        remarks = ""
+        if request.POST['remarks']:
+            delivery.remarks = request.POST['remarks']
+            remarks = delivery.remarks
+        else:
+            remarks = "None"
+        delivery.save()
         order.save()
-        forms.save()
+
+        email = EmailMessage(
+            "Collect your order 📦",
+            'Hi ' + order.customer.user.username + ', Your order "' + order.product.name + '" has been prepared. \n'
+            '\nStaff Assigned: ' + staff.name + '\nToken: '+delivery.token + "\nRemarks: " + remarks,
+            None,
+            [str(order.customer.user.email).lower()],
+        )
+        Thread(email).start()
         messages.success(request, "Order successfully delivered")
         return redirect('delivery-list')
     forms = DeliveryForm(request.GET)
@@ -346,7 +379,6 @@ class DeliveryListView(ListView):
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
     paginate_by = 1
-
 
 @login_required(login_url='auth')
 def order_summary(request):
@@ -374,3 +406,13 @@ def order_summary(request):
         packaged_data = {'order_summary': baked_data}
 
         return JsonResponse(packaged_data, safe=False)
+
+
+class Thread(threading.Thread):
+
+    def __init__(self, task):
+        self.task = task
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.task.send(fail_silently=False)

@@ -117,6 +117,7 @@ class GetProduct(ListView):
         context = super(GetProduct, self).get_context_data(**kwargs)
         context['filter'] = self.request.GET.get('name_contains', None)
         context['search'] = self.request.GET.get('name_contains', None)
+        context['specials'] = Product.objects.filter(is_special=True)
         return context
 
 

@@ -58,8 +58,8 @@
                                     <th>Name</th>
                                     <th>Type</th>
                                     <th>Price</th>
-                                    <th>Description</th>
                                     <th>Featured</th>
+                                    <th>Special</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -78,7 +78,6 @@
                                     <td>{{ product.name }}</td>
                                     <td>{{ product.type }}</td>
                                     <td>{{ product.price }}</td>
-                                    <td>{{ product.desc }}</td>
                                     <td>
 										{% if product.is_featured %}
 											<a class="btn btn-success btn-sm disabled" role="button" href="">
@@ -86,6 +85,15 @@
 										{% else %}
 											<a class="btn btn-warning btn-sm disabled" role="button" href="">
 												{{ product.is_featured}}</a>
+										{% endif %}
+									</td>
+									<td>
+										{% if product.is_special %}
+											<a class="btn btn-success btn-sm disabled" role="button" href="">
+												{{ product.is_special}}</a>
+										{% else %}
+											<a class="btn btn-warning btn-sm disabled" role="button" href="">
+												{{ product.is_special}}</a>
 										{% endif %}
 									</td>
                                     <td><a href="{% url 'edit-product' product.id %}" role="button" class="btn

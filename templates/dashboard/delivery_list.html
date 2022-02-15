@@ -54,9 +54,10 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Order</th>
-                                <th>Order Name</th>
                                 <th>Staff Assigned</th>
+                                <th>Token</th>
                                 <th>Date</th>
+                                <th>Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,9 +66,10 @@
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ delivery.order }}</td>
-                                <td>{{ delivery.order_name }}</td>
                                 <td>{{ delivery.staff }}</td>
+                                <td>{{ delivery.token }}</td>
                                 <td>{{ delivery.created_date }}</td>
+                                <td>{{ delivery.remarks }}</td>
                             </tr>
                             {% endfor %}
                             {% else %}

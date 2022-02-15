@@ -26,47 +26,64 @@
 		</div>
 
         <div class="special-list row g-0 justify-content-center">
-            <div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
-                <div class="special-img position-relative overflow-hidden ">
-                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-					<span class="position-absolute  text-white d-flex align-items-center
-                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
-                            fa-fire" ></i></span>
-                </div>
-                <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">text</p>
-                    <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
-                </div>
-            </div>
+			{% if specials %}
+				{% for special in specials %}
+					<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+						<div class="special-img position-relative overflow-hidden ">
+							<img src="{% static special.image.url %}" class="w-100 product-img">
+							<span class="position-absolute  text-white d-flex align-items-center
+									justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+									fa-fire" ></i></span>
+						</div>
+						<div class="text-center">
+							<p class="text-capitalize mt-3 mb-1">{{ special.name }}</p>
+							<span class="fw-bold d-block">$ {{ special.price }}</span>
+							<a href="{% url 'order' special.id %}" class="btn btn-secondary mt-3 card-btn">Order Now</a>
+						</div>
+            		</div>
+				{% endfor %}
+			{% else %}
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+			{% endif %}
 
-            <div class="col-lg-4 col-xl-3 p-2 feat-2 s2">
-                <div class="special-img position-relative overflow-hidden ">
-                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img"/>
-					<span class="position-absolute  text-white d-flex align-items-center
-                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
-                            fa-fire" ></i></span>
-                </div>
-                <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">text</p>
-                    <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-xl-3 p-2 feat-2 s3">
-                <div class="special-img position-relative overflow-hidden ">
-                    <img src="{% static 'images/dark_bread_pattern.png' %}" class="w-100 product-img">
-					<span class="position-absolute  text-white d-flex align-items-center
-                            justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
-                            fa-fire " ></i></span>
-                </div>
-                <div class="text-center">
-                    <p class="text-capitalize mt-3 mb-1">text</p>
-                    <span class="fw-bold d-block">$ 45.50</span>
-                    <a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
-                </div>
-            </div>
         </div>
     </div>
             </div>
@@ -100,10 +117,11 @@
     <div class="container">
         <div class="justify-content-center">
             <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-				<form class="input-group px-4 m-2" action="#collection" href="{% url 'products' %}" method="get">
+				<form class="input-group px-4 m-2 justify-content-center" action="#collection" href=
+						"{% url 'products' %}" method="get">
 					<input class="form-control py-2 search-bar" type="search" name="name_contains"
 						   {% if search %}value="{{ search }}"{% endif %}
-						   placeholder="Product name" />
+						   placeholder="Product name" style="max-width: 500px; min-width: 200px"/>
 					<span class="input-group-append">
 						<button class="input-group-text btn bg-transparent search-bar search-bar-btn" type="submit">
 							<i class="fa fa-search search-bar-icon" style="color:#F3C969 !important;"></i>

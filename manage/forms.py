@@ -111,7 +111,7 @@ class CustomerUpdateForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'type', 'price', 'image', 'desc', 'is_featured']
+        fields = ['name', 'type', 'price', 'image', 'desc', 'is_featured', 'is_special']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
@@ -130,6 +130,9 @@ class ProductForm(forms.ModelForm):
             }),
             'is_featured': forms.NullBooleanSelect(attrs={
                 'class': 'form-control', 'id': 'is_featured'
+            }),
+            'is_special': forms.NullBooleanSelect(attrs={
+                'class': 'form-control', 'id': 'is_special'
             }),
         }
 
@@ -196,9 +199,14 @@ class EditOrderForm(forms.ModelForm):
 
 
 class DeliveryForm(forms.ModelForm):
+    remarks = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'form-control', 'id': 'remarks', 'default':''
+    }))
+
     class Meta:
         model = Delivery
-        fields = '__all__'
+        fields = ['order', 'staff']
+        exclude = ['token']
 
         widgets = {
             'order': forms.Select(attrs={
@@ -207,8 +215,4 @@ class DeliveryForm(forms.ModelForm):
             'staff': forms.Select(attrs={
                 'class': 'form-control', 'id': 'staff'
             }),
-            'order_name': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'order_name'
-            }),
-
         }
