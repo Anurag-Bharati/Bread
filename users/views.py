@@ -4,17 +4,21 @@ import validate_email as EmailValidator
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 from django.utils.encoding import force_bytes, force_str
+from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import auth
 
+from bread import settings
 from manage.models import Customer
 from users.forms import LoginForm, RegistrationForm
 from users.models import User
 from users.utils import activation_token
+
+from django.template.loader import render_to_string
 
 import threading
 
@@ -174,16 +178,20 @@ def signup(request):
 
         magic_link = reverse('activate', kwargs={
             'identity': urlsafe_base64_encode(force_bytes(user.pk)), 'token': activation_token.make_token(user)})
-
         activate_url = 'http://' + current_site + magic_link
 
-        email = EmailMessage(
+        email_context = render_to_string('email/account_verification.html', {'user': user.username, "activator": activate_url})
+        text_content = strip_tags(email_context)
+
+        mail = EmailMultiAlternatives(
             "Activate your account",
-            'Hi ' + user.username + ', Please visit the link to activate your account \n' + activate_url,
-            'noreply@bread.com',
-            [email],
+            text_content,
+            settings.EMAIL_HOST_USER,
+            [email]
         )
-        Thread(email).start()
+        mail.attach_alternative(email_context, "text/html")
+
+        Thread(mail).start()
         messages.success(request, 'A verification mail is sent to your email')
         return render(request, 'signInUp.html', context)
 

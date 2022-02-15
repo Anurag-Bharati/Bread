@@ -1,13 +1,17 @@
 import threading
+import validate_email as EmailValidator
 
 from django.contrib import messages
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
+from bread import settings
 from users.models import User
 from .models import Staff, Customer, Product, Order, Delivery
 from .forms import StaffForm, CustomerForm, ProductForm, OrderForm, DeliveryForm, EditOrderForm
@@ -228,6 +232,23 @@ def edit_order(request, id):
             order.description = description
         if status:
             order.status = status
+            if order.status == 'decline':
+                remarks = "Unavailable"
+                email_context = render_to_string('email/order_declined.html',
+                                                 {'user': customer.user.username, "product": product.name,
+                                                  'type': product.type,
+                                                  "staff": staff.name, "remarks": remarks, })
+                text_content = strip_tags(email_context)
+
+                mail = EmailMultiAlternatives(
+                    "Order Rejected ❌",
+                    text_content,
+                    settings.EMAIL_HOST_USER,
+                    [str(customer.user.email).lower()],
+                )
+                mail.attach_alternative(email_context, "text/html")
+
+                Thread(mail, customer.user.email).start()
 
         order.save()
         messages.success(request, 'Order updated  successfully')
@@ -357,14 +378,20 @@ def create_delivery(request):
         delivery.save()
         order.save()
 
-        email = EmailMessage(
+        email_context = render_to_string('email/order_ready.html',
+                                         {'user': order.customer.user.username, "product": order.product.name,
+                                          'type': order.product.type,
+                                          "staff": staff.name, "token": delivery.token, "remarks": remarks, })
+        text_content = strip_tags(email_context)
+
+        mail = EmailMultiAlternatives(
             "Collect your order 📦",
-            'Hi ' + order.customer.user.username + ', Your order "' + order.product.name + '" has been prepared. \n'
-            '\nStaff Assigned: ' + staff.name + '\nToken: '+delivery.token + "\nRemarks: " + remarks,
-            None,
+            text_content,
+            settings.EMAIL_HOST_USER,
             [str(order.customer.user.email).lower()],
         )
-        Thread(email).start()
+        mail.attach_alternative(email_context, "text/html")
+        Thread(mail, order.customer.user.email).start()
         messages.success(request, "Order successfully delivered")
         return redirect('delivery-list')
     forms = DeliveryForm(request.GET)
@@ -410,7 +437,9 @@ def order_summary(request):
 
 class Thread(threading.Thread):
 
-    def __init__(self, task):
+    def __init__(self, task, email):
+        if not EmailValidator.validate_email(str(email).lower()):
+            return
         self.task = task
         threading.Thread.__init__(self)
 
