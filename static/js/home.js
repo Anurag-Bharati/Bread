@@ -43,7 +43,7 @@ $(document).ready(function () {
 
      // Navbar Collapse
      $(".nav-link").on("click", function(){
-        $(".navbar-collapse").collapse("hide");
+         $(".navbar-collapse").collapse("hide");
      });
 
 });

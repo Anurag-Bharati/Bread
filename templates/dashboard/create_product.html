@@ -9,8 +9,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Manage</a></li>
-                        <li><a href="#">Product</a></li>
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'product-list' %}">Product</a></li>
                         <li class="active">Create</li>
                     </ol>
                 </div>
@@ -21,6 +21,24 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+    <!--MESSAGE PANEL-->
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <div class="row">
     <div class="col-lg-12" align="center">
         <div class="card">
@@ -31,7 +49,7 @@
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                     <div class="card-body">
-                        <form action="#" method="post" novalidate="novalidate" align="start">
+                        <form action="#" method="post" novalidate="novalidate" align="start" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name" class="control-label mb-1">Name</label>
@@ -42,11 +60,30 @@
                                 {{ form.type }}
                             </div>
                             <div class="form-group">
+                                <label for="price" class="control-label mb-1">Price</label>
+                                {{ form.price }}
+                            </div>
+                            <div class="form-group">
                                 <label for="desc" class="control-label mb-1">Description</label>
                                 {{ form.desc }}
                             </div>
+                            <div class="row">
+								 <div class="col-lg-4 col-md-6 form-group">
+									<label for="is_featured" class="control-label mb-1">Featured</label>
+									{{ form.is_featured }}
+                            	</div>
+								 <div class="col-lg-4 col-md-6 form-group">
+									<label for="is_special" class="control-label mb-1">Special</label>
+									{{ form.is_special}}
+                            	</div>
+								 <div class="col-lg-4 col-md-6 form-group">
+									<label for="image" class="control-label mb-1">Image</label>
+									{{ form.image }}
+                            	</div>
+							 </div>
                             <div>
-                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block yellow-btn">
+                                <button id="payment-button" type="submit"
+                                    class="btn btn-lg btn-info btn-block yellow-btn">
                                     <span id="payment-button-amount">Create Product</span>
                                 </button>
                             </div>
@@ -57,6 +94,7 @@
             </div>
         </div> <!-- .card -->
 
-    </div><!--/.col-->
+    </div>
+    <!--/.col-->
 </div>
 {% endblock content %}

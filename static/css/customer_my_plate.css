@@ -1,0 +1,215 @@
+.title {
+    margin-bottom: 5vh
+}
+
+.my-plate-card {
+    margin: 50px;
+    max-width: 950px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent
+}
+
+.area{
+	min-height: 575px;
+}
+
+.form-quantity {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+.my-plate-form>#decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+.my-plate-form>#increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+.my-plate-form>#input-wrap {
+  margin: 0;
+  padding: 0;
+}
+
+.my-plate-input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.my-plate-input[type=number]::-webkit-inner-spin-button,
+.my-plate-input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media(max-width:767px) {
+    .my-plate-card {
+        margin: 3vh auto
+    }
+}
+
+.cart {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem
+}
+
+@media(max-width:767px) {
+    .cart {
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem
+    }
+}
+
+.summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65)
+}
+
+@media(max-width:767px) {
+    .summary {
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem
+    }
+}
+
+.summary .col-2 {
+    padding: 0
+}
+
+.summary .col-10 {
+    padding: 0
+}
+
+.row {
+    margin: 0
+}
+
+.title b {
+    font-size: 1.5rem
+}
+
+.main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%
+}
+
+.col-2,
+.col {
+    padding: 0 1vh
+}
+
+.my-plate-a {
+    padding: 0 1vh
+}
+
+.my-plate-i{
+    color: white;
+}
+
+.close {
+    margin-left: auto;
+    font-size: 0.7rem
+}
+
+.my-plate-img {
+    width: 3.5rem
+}
+
+.back-to-shop {
+    margin-top: 4.5rem
+}
+
+
+.my-plate-h5 {
+    margin-top: 4vh
+}
+
+.my-plate-hr {
+    margin-top: 1.25rem
+}
+
+.my-plate-form {
+    padding: 2vh 0
+}
+
+.my-plate-input {
+    border: 0 solid transparent;
+    border-radius: 10px;
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247)
+}
+
+.my-plate-input:focus::-webkit-input-placeholder {
+    color: transparent
+}
+
+.btn:focus {
+    box-shadow: none;
+    outline: none;
+	color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none
+}
+
+.btn:hover {
+    color: white
+}
+
+.my-plate-a {
+    color: black
+}
+
+.my-plate-a:hover {
+    color: black;
+    text-decoration: none
+}
+
+#code {
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center
+}

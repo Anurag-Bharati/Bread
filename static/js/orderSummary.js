@@ -40,7 +40,6 @@ const getChartData=()=>{
   fetch('../manage/order-summary')
   .then(res=>res.json())
   .then(results=>{
-    console.log('results',results);
     const category_data = results.order_summary;
     const [labels, data]=[
       Object.keys(category_data),

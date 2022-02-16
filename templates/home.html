@@ -13,13 +13,17 @@
     <link href="{% static 'images/donut.png' %}" rel="apple-touch-icon">
 
     <!-- carousel slider by OWL-Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css"
+        integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
 </head>
 
 <body>
@@ -46,12 +50,11 @@
                                 class="fas fa-home me-2"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-scroll-nav="1" href="#"><i
-                                class="fas fa-th-large me-2"></i>How it works?</a>
+                        <a class="nav-link" data-scroll-nav="1" href="#stats"><i class="fas fa-th-large me-2"></i>Stats</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-scroll-nav="2" href="#"><i
-                                class="fas fa-th-large me-2"></i>Products</a>
+                        <a class="nav-link" data-scroll-nav="2" href="#how"><i class="fas fa-th-large me-2"></i>How it
+                            works?</a>
                     </li>
 
                 </ul>
@@ -59,9 +62,9 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a class="btn-1" type="button" href="{% url 'dashboard' %}">Login<i class="fas
                     fa-sign-in-alt"></i></a>
-                      <div class="toggle-theme">
-                         <i class="fas"></i>
-                      </div>
+                    <div class="toggle-theme">
+                        <i class="fas"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,13 +92,13 @@
                 </div>
                 <div class="col-md-7 order-lg-first">
                     <div class="hero-text">
-                            <img class="d-none d-lg-block" src="{% static 'images/bakerySign.png' %}" height="120" alt="">
+                        <img class="d-none d-lg-block" src="{% static 'images/bakerySign.png' %}" height="120" alt="">
                         <h1>Bread for you business butter</h1>
                         <p>Bread is a bakery management software which lets you manage your business. With Bread, you
-                            can now easily have track of your menu items.
+                            can now order bakery items remotely.
                         </p>
                         <div class="hero-btn">
-                            <a type="button" href="{% url 'dashboard' %}" class="btn btn-hero start-btn ">Get
+                            <a type="button" href="{% url 'products' %}" class="btn btn-hero start-btn ">Get
                                 Started</a>
                         </div>
                     </div>
@@ -119,7 +122,7 @@
     <!-- /Amenities -->
 
     <!-- Stats -->
-    <section class="statistics section-padding" id="stats">
+    <section class="statistics section-padding" id="stats" data-scroll-index="1" >
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-5 d-flex align-items-center justify-content-center">
@@ -137,10 +140,10 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="statistics-item style-1">
-                                    {% if totalUsers %}
-                                         <h3>{{ totalUsers }}</h3>
+                                    {% if customer_count %}
+                                    <h3>{{ customer_count }}</h3>
                                     {% else %}
-                                        <h3>2000</h3>
+                                    <h3>200</h3>
                                     {% endif %}
 
                                     <span>Users</span>
@@ -148,24 +151,33 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="statistics-item style-2">
-                                   {% if totalProduct %}
-                                         <h3>{{ totalProduct }}</h3>
+                                    {% if product_count %}
+                                    <h3>{{ product_count }}</h3>
                                     {% else %}
-                                        <h3>200</h3>
+                                    <h3>200</h3>
                                     {% endif %}
                                     <span>Products</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="statistics-item style-3">
-                                    <h3>500</h3>
-                                    <span>5 star rating</span>
+								{% if delivery_count %}
+                                    <h3>{{ delivery_count }}</h3>
+                                    {% else %}
+                                    <h3>100</h3>
+                                    {% endif %}
+                                    <span>Successful Delivery</span>
+
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="statistics-item style-4">
-                                    <h3>15</h3>
-                                    <span>awards</span>
+                                     {% if staff_count %}
+                                    <h3>{{ staff_count }}</h3>
+                                    {% else %}
+                                    <h3>50</h3>
+                                    {% endif %}
+                                    <span>Working Staff</span>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +189,8 @@
     <!-- Stats -->
 
     <!-- How It Works Section Start -->
-    <section class="how-it-works section-padding" id="how">
-        <div class="container">
+    <section class="how-it-works section-padding" id="how" data-scroll-index="2" >
+        <div class="container" >
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title">
@@ -191,180 +203,34 @@
                     <div class="how-it-works-item line-right">
                         <div class="step">1</div>
                         <h3>Get started</h3>
-                        <p>Scroll to home and tap the pulsing GET STARTED button. You will be redirected to
-                            bread authentication</p>
+                        <p>Surf the products by tapping the pulsing GET STARTED button.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="how-it-works-item line-right">
                         <div class="step">2</div>
-                        <h3>create profile</h3>
-                        <p>Fill up a small form, make sure to provide your relevant data in the registration form</p>
+                        <h3>Create profile</h3>
+                        <p>Search, Filter, Select the product, you like to order and fill a short form</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="how-it-works-item line-right">
                         <div class="step">3</div>
-                        <h3>verification</h3>
+                        <h3>Verification</h3>
                         <p>Verify your account by going to verification link that is sent to your email</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="how-it-works-item">
                         <div class="step">4</div>
-                        <h3>start managing</h3>
-                        <p>Now you can log in and start managing your bakery with bread!</p>
+                        <h3>Get your butter</h3>
+                        <p>Now you can log in and start ordering goods with Bread!</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- How It Works Section End -->
-
-    <!-- Testimonials Section Start -->
-    <section class="product section-padding" id="products" data-scroll-index="2">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title">
-                        <h2>surf our <span>menu</span> list</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="owl-carousel testimonials-carousel">
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/breadBasket.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Bread Combo</h3>
-                        <span>misc item</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>White Bread</h3>
-                        <span>organic flour</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="img-box">
-                            <img src="{% static 'images/bread.png' %}" alt="testimonial">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <h3>Brown Bread</h3>
-                        <span>whole grain</span>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </section>
-    <!-- Product Section End -->
 
     <!-- Footer Start -->
     <footer class="footer">
@@ -394,7 +260,6 @@
                             <li><a href="#hero">home</a></li>
                             <li><a href="#stats">statistics</a></li>
                             <li><a href="#how">how it works?</a></li>
-                            <li><a href="#products">products</a></li>
                         </ul>
                     </div>
                 </div>
@@ -420,13 +285,18 @@
     <!-- /Footer -->
 
     <!-- jquery js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <!-- owl carousel js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"
+        integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- bootstrap bundle with popper -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- ScrollIt js -->
     <script src="https://cdn.jsdelivr.net/npm/scrollit@1.0.5/scrollIt.min.js"></script>
+
     <!-- main js -->
     <script src="{% static 'js/home.js' %}"></script>
     <script src="{% static 'js/dark_mode.js' %}"></script>

@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-dark nav">
+    <a class="navbar-brand" href="{% url 'home' %}">BREAD</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse customer-nav" align="center" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'products' %}">Special<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./#collection">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'customer-profile' %}">Profile</a>
+            </li>
+        </ul>
+         <a data-toggle="button" class="btn btn-sm toggle-theme justify-content-center align-items-center p-0 mr-2">
+                    <i class="fas fa-sun m-0 p-0"></i>
+                </a>
+        <a class="btn btn-sm btn-light" href="{% url 'my-plate' %}" style="margin: 10px 10px 10px 0 ">MyOrders</a>
+		{% if user %}
+			 <form method="post" action="{% url 'logout' %}">
+				 {% csrf_token %}
+				<button type="submit" class="btn btn-sm btn-danger">Logout</button>
+			 </form>
+		{% else %}
+				<a href="{% url 'auth' %}" class="btn btn-sm btn-success">Sign Up</a>
+		{% endif %}
+    </div>
+</nav>

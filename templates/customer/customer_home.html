@@ -1,0 +1,178 @@
+{% extends 'base/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+	 <!-- Preloader Start -->
+    <div class="preloader">
+        <span></span>
+    </div>
+    <!-- Preloader End -->
+	<section class="hero d-flex align-items-center justify-content-center" id="hero" data-scroll-index="0">
+        <div class="effect-wrap">
+            <i class="fas fa-plus effect effect-1"></i>
+            <i class="fas fa-plus effect effect-2"></i>
+            <i class="fa fa-coffee effect effect-3"></i>
+            <i class="fas fa-circle effect effect-4"></i>
+            <i class="fa fa-birthday-cake effect effect-5"></i>
+            <i class="fa fa-heart effect effect-6"></i>
+
+        </div>
+        <div class="container" style="margin: 0">
+            <div class="row align-items-center">
+                <div class="container">
+        <div class="section-title">
+			<br>
+			<h2>Special<span> Products</span></h2>
+		</div>
+
+        <div class="special-list row g-0 justify-content-center">
+			{% if specials %}
+				{% for special in specials %}
+
+					<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+						<div class="special-img position-relative overflow-hidden ">
+							<img src="{% static special.image.url %}" class="w-100 product-img">
+							<span class="position-absolute  text-white d-flex align-items-center
+									justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+									fa-fire" ></i></span>
+						</div>
+						<div class="text-center">
+							<p class="text-capitalize mt-3 mb-1">{{ special.name }}</p>
+							<span class="fw-bold d-block">$ {{ special.price }}</span>
+							<a href="{% url 'order' special.id %}" class="btn btn-secondary mt-3 card-btn">Order Now</a>
+						</div>
+            		</div>
+				{% endfor %}
+			{% else %}
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s1">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s2">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-3 p-2 feat-2 s3">
+					<div class="special-img position-relative overflow-hidden ">
+						<img src="{% static './images/dark_bread_pattern.png' %}" class="w-100 product-img">
+						<span class="position-absolute  text-white d-flex align-items-center
+								justify-content-center animated-btn-2" style="width: 30px; height: 30px;"><i class="fa
+								fa-fire" ></i></span>
+					</div>
+					<div class="text-center">
+						<p class="text-capitalize mt-3 mb-1">Dummy Product</p>
+						<span class="fw-bold d-block">$ 44.44</span>
+						<a href="#" class="btn btn-secondary mt-3 card-btn">ORDER NOW</a>
+					</div>
+				</div>
+			{% endif %}
+
+        </div>
+    </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!--Amenities -->
+    <section class="amenities">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3"><i class="fa fa-coffee"></i>Cafe</div>
+                <div class="col-6 col-md-3"><i class="fa fa-birthday-cake"></i>Cake</div>
+                <div class="col-6 col-md-3"><i class="fa fa-heart"></i>Love</div>
+                <div class="col-6 col-md-3"><i class="fa fa-gift"></i>Gift</div>
+            </div>
+        </div>
+    </section>
+
+	<section class="product-bar">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="section-title">
+                        <h2>Explore<span> Items</span></h2>
+                    </div>
+            </div>
+        </div>
+    </section>
+<!-- collection -->
+<section id="collection" class="py-4" >
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
+				<form class="input-group px-4 m-2 justify-content-center" action="#collection" href=
+						"{% url 'products' %}" method="get">
+					<input class="form-control py-2 search-bar" type="search" name="name_contains"
+						   {% if search %}value="{{ search }}"{% endif %}
+						   placeholder="Product name" style="max-width: 500px; min-width: 200px"/>
+					<span class="input-group-append">
+						<button class="input-group-text btn bg-transparent search-bar search-bar-btn" type="submit">
+							<i class="fa fa-search search-bar-icon" style="color:#F3C969 !important;"></i>
+						</button>
+					</span>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="all">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >All</button>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="featured">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >Featured</button>
+				</form>
+				<form action="#collection" href="{% url 'products' %}" method="get">
+					<input class="hidden" hidden name="name_contains" value="new">
+                <button type="submit" class="btn btn-primary m-2 text-dark
+                active-filter-btn" >New Arrivals</button>
+				</form>
+            </div>
+
+            <div class="collection-list mt-4 row gx-0 gy-3 justify-content-center">
+                {% if products %}
+                {% for product in products %}
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat ">
+                    <div class="collection-img position-relative product-img-holder">
+                        <img src="{% static product.image.url %}" class="w-100 product-img" alt="product">
+                        <span
+                            class="position-absolute bg-primary text-white d-flex align-items-center
+                            justify-content-center animated-btn">sale</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-capitalize mt-3 mb-1">{{ product.name }}</p>
+                        <span class="fw-bold d-block">$ {{ product.price }}</span>
+                        <a href="{% url 'order' product.id %}" class="btn mt-3
+                                    card-btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+					<div class=" bg-white p-2 align-items-center justify-content-center"> <H3>No Products
+					Available</H3></div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+	</section>
+{% include 'base/paginator.html' %}
+<!-- end of collection -->
+{% endblock content %}

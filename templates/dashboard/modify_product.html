@@ -1,0 +1,122 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Edit Product{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'product-list' %}">Product</a></li>
+                        <li class="active">Modify</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<!--MESSAGE PANEL-->
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-xl-12" align="center">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Edit Product</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats product-table ov-h ">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>Picture</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Price</th>
+                                    <th>Featured</th>
+                                    <th>Special</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if products %}
+                                {% for product in products %}
+                                <tr>
+                                    <td class="serial">{{ forloop.counter }}</td>
+                                    <td class="product-img">
+										<img style="margin: 0; padding: 0; height: 45px; width: 45px; object-fit: cover"
+											 src=
+												"{% static product.image.url %}" alt=
+												"{{ product.name }}"/>
+									</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.type }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>
+										{% if product.is_featured %}
+											<a class="btn btn-success btn-sm disabled" role="button" href="">
+												{{ product.is_featured}}</a>
+										{% else %}
+											<a class="btn btn-warning btn-sm disabled" role="button" href="">
+												{{ product.is_featured}}</a>
+										{% endif %}
+									</td>
+									<td>
+										{% if product.is_special %}
+											<a class="btn btn-success btn-sm disabled" role="button" href="">
+												{{ product.is_special}}</a>
+										{% else %}
+											<a class="btn btn-warning btn-sm disabled" role="button" href="">
+												{{ product.is_special}}</a>
+										{% endif %}
+									</td>
+                                    <td><a href="{% url 'edit-product' product.id %}" role="button" class="btn
+                                    btn-warning
+                                    btn-sm">Edit</a></td>
+                                    <td><a href="{% url 'delete-product' product.id %}" onclick="return confirm('Are ' +
+                                     'you sure?')" id="delete-product" role="button" class="btn
+                                    btn-danger
+                                    btn-sm">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>No Product Data</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.card -->
+{% include 'base/paginator.html' %}
+    </div>
+</div>
+{% endblock content %}

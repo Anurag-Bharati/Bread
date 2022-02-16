@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.crypto import get_random_string
 
 from users.models import User
 
@@ -17,6 +18,7 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120, unique=True)
     address = models.CharField(max_length=220)
+    image = models.ImageField(null=True, default="../default_customer.png")
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -24,9 +26,13 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=120, unique=True)
+    name = models.CharField(max_length=120, unique=False)
     type = models.CharField(max_length=120, unique=False, null=True)
+    price = models.PositiveSmallIntegerField(null=True)
+    image = models.ImageField(null=True, default="../default_product.png")
     desc = models.CharField(max_length=200, unique=False, null=True)
+    is_featured = models.BooleanField(null=True, default=False)
+    is_special = models.BooleanField(null=True, default=False)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -56,9 +62,10 @@ class Order(models.Model):
 
 class Delivery(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    order_name = models.CharField(max_length=120)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
+    token = models.CharField(max_length=6, default=get_random_string(6).upper())
+    remarks = models.CharField(max_length=120, null=True, default=None)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.order_name
+        return self.token

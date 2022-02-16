@@ -1,0 +1,90 @@
+{% extends 'base/customer_base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/customer_home.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="justify-content-center" style="margin: 0; padding: 0">
+    <div class="col-lg-12" align="center">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top: 10px" role="alert">
+                    {{ message }}
+                </div>
+                {% elif message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top: 10px" role="alert">
+                    {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-warning" style="margin-top: 10px" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="card" style="margin:60px 20px 0 20px">
+            <div class="card-header">
+                <h4 class="card-title p-1" style="margin: 0">{{ product.name }} ${{ product.price }}</h4>
+            </div>
+
+            <div class="card-body">
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form method="post" novalidate="novalidate" align="start">
+                            {% csrf_token %}
+                            <div class="row justify-content-around">
+                                <div class="col-md-4 align-self-center justify-content-center ">
+                                    <div class="form-group row align-items-center justify-content-center"
+                                        style="margin: 0; padding: 0">
+                                        <img src="{% static product.image.url %}" class="
+                                        product-img" style="max-height: 400px; max-width: 400px; min-height: 300px;
+                                        min-width: 300px" alt="product">
+                                    </div>
+                                </div>
+                                <div style="max-width: 500px; margin: 20px " class="col-md-8 justify-content-center
+                                align-items-center align-self-center" align="center">
+									<div class="card p-2 btn btn-info disabled mb-3" >
+										<h5 style="margin: 0">{{ product.type }}</h5>
+										<p class="m-0">{{ product.desc }}</p>
+									</div>
+										<div class="row justify-content-around align-items-center">
+											<div class="col-md-6 form-group" align="start">
+												<label for="quantity" class="control-label mb-1">Quantity</label>
+												{{ form.quantity }}
+                                        	</div>
+                                        <div class="col-md-6 form-group" align="start">
+												<label for="toppings" class="control-label mb-1">Toppings</label>
+												{{ form.toppings }}
+                                        	</div>
+										</div>
+                                        <div class="form-group" align="start">
+                                            <label for="description" class="control-label mb-1">Description</label>
+                                            {{ form.description }}
+                                        </div>
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-success btn-block yellow-btn">
+                                                <span id="payment-button-amount">Create Order</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+    </div>
+    <div class="back-to-shop-order" align="center">
+        <a href="{% url 'home-page' %}" class="btn btn-sm btn-danger">
+            <i class="fa fa-arrow-left" style="margin-right: 5px" aria-hidden="true"></i>
+            Back to shop</a>
+    </div>
+</div>
+
+{% endblock content %}

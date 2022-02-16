@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block title %}Customer List{% endblock title %}
 
@@ -9,8 +10,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li><a href="#">Manage</a></li>
-                        <li><a href="#">Customer</a></li>
+                        <li><a href="{% url 'dashboard' %}">Manage</a></li>
+                        <li><a href="{% url 'create-customer' %}">Customer</a></li>
                         <li class="active">List</li>
                     </ol>
                 </div>
@@ -21,6 +22,24 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+    <!--MESSAGE PANEL-->
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <div class="row">
     <div class="col-xl-12" align="center">
         <div class="card">
@@ -33,6 +52,7 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
+                                <th>Picture</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Email</th>
@@ -44,6 +64,12 @@
                             {% for c in customer %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
+								<td class="">
+										<img style="margin: 0; padding: 0; height: 45px; width: 45px; object-fit: cover"
+											 src=
+												"{% static c.image.url %}" alt=
+												"{{ c.name }}"/>
+									</td>
                                 <td>{{ c.name }}</td>
                                 <td>{{ c.address }}</td>
                                 <td>{{ c.user.email }}</td>
@@ -51,15 +77,17 @@
                             </tr>
                             {% endfor %}
                             {% else %}
-                                <tr><td>No Customer Data</td></tr>
+                            <tr>
+                                <td>No Customer Data</td>
+                            </tr>
                             {% endif %}
                         </tbody>
                     </table>
                 </div> <!-- /.table-stats -->
             </div>
         </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
+{% include 'base/paginator.html' %}
+    </div> <!-- /.col-lg-8 -->
 
-    
 </div>
 {% endblock content %}
