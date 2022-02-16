@@ -96,7 +96,6 @@ def checkPass(request, password):
 
 
 def login(request):
-
     form = LoginForm(request.POST)
     if not form.is_valid():
         messages.error(request, "Please fill all the forms.")

@@ -5,7 +5,7 @@ from django.contrib import messages, auth
 from django.views.decorators.cache import cache_control
 from django.views.generic import ListView
 
-from manage.forms import OrderForm, CustomerForm, CustomerUpdateForm
+from manage.forms import OrderForm, CustomerUpdateForm
 from manage.models import Product, Customer, Order
 
 
@@ -155,7 +155,7 @@ def edit_profile(request):
         return render(request, 'customer/update_profile.html', context)
 
     elif request.method == 'POST':
-        forms = CustomerForm(request.POST)
+
         name = request.POST['name']
         address = request.POST['address']
 
@@ -165,10 +165,10 @@ def edit_profile(request):
                 return redirect('update-profile')
             customer.name = name
 
-        if request.FILES['image']:
-            image = request.FILES['image']
-            if image and image != customer.image:
-                customer.image = image
+        image = request.FILES.get('image', None)
+
+        if image and image.name != customer.image.name:
+            customer.image = image
 
         if address and address != customer.address:
             customer.address = address
