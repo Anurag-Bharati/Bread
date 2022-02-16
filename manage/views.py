@@ -50,6 +50,7 @@ class StaffListView(ListView):
     template_name = 'dashboard/staff_list.html'
     context_object_name = 'staff'
     paginate_by = 1
+    ordering = 'id'
 
 
 # Customer
@@ -85,7 +86,7 @@ class CustomerListView(ListView):
     template_name = 'dashboard/customer_list.html'
     context_object_name = 'customer'
     paginate_by = 1
-
+    ordering = 'id'
 
 # Product
 @login_required(login_url='auth')
@@ -233,7 +234,7 @@ def edit_order(request, id):
             order.description = description
         if status:
             order.status = status
-            if order.status == 'decline':
+            if order.status == 'decline' and EmailValidator.validate_email(str(order.customer.user.email).lower()):
                 remarks = "Unavailable"
                 email_context = render_to_string('email/order_declined.html',
                                                  {'user': customer.user.username, "product": product.name,
@@ -249,7 +250,7 @@ def edit_order(request, id):
                 )
                 mail.attach_alternative(email_context, "text/html")
 
-                Thread(mail, customer.user.email).start()
+                Thread(mail).start()
 
         order.save()
         messages.success(request, 'Order updated  successfully')
@@ -378,21 +379,22 @@ def create_delivery(request):
             remarks = "None"
         delivery.save()
         order.save()
+        if EmailValidator.validate_email(str(order.customer.user.email).lower()):
+            email_context = render_to_string('email/order_ready.html',
+                                             {'user': order.customer.user.username, "product": order.product.name,
+                                              'type': order.product.type,
+                                              "staff": staff.name, "token": delivery.token, "remarks": remarks, })
+            text_content = strip_tags(email_context)
 
-        email_context = render_to_string('email/order_ready.html',
-                                         {'user': order.customer.user.username, "product": order.product.name,
-                                          'type': order.product.type,
-                                          "staff": staff.name, "token": delivery.token, "remarks": remarks, })
-        text_content = strip_tags(email_context)
+            mail = EmailMultiAlternatives(
+                "Collect your order 📦",
+                text_content,
+                settings.EMAIL_HOST_USER,
+                [str(order.customer.user.email).lower()],
+            )
+            mail.attach_alternative(email_context, "text/html")
 
-        mail = EmailMultiAlternatives(
-            "Collect your order 📦",
-            text_content,
-            settings.EMAIL_HOST_USER,
-            [str(order.customer.user.email).lower()],
-        )
-        mail.attach_alternative(email_context, "text/html")
-        Thread(mail, order.customer.user.email).start()
+            Thread(mail).start()
         messages.success(request, "Order successfully delivered")
         return redirect('delivery-list')
     forms = DeliveryForm(request.GET)
@@ -407,6 +409,7 @@ class DeliveryListView(ListView):
     template_name = 'dashboard/delivery_list.html'
     context_object_name = 'delivery'
     paginate_by = 1
+    ordering = '-id'
 
 @login_required(login_url='auth')
 def order_summary(request):
@@ -438,9 +441,7 @@ def order_summary(request):
 
 class Thread(threading.Thread):
 
-    def __init__(self, task, email):
-        if not EmailValidator.validate_email(str(email).lower()):
-            return
+    def __init__(self, task):
         self.task = task
         threading.Thread.__init__(self)
 
