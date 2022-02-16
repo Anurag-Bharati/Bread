@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
 from manage.models import Product, Staff, Customer, Order
+
 
 @login_required(login_url='auth')
 def dashboard(request):

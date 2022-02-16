@@ -121,6 +121,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'dashboard/product_list.html'
     context_object_name = 'product'
+    ordering = '-id'
     paginate_by = 1
 
 

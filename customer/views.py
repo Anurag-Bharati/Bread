@@ -9,11 +9,7 @@ from manage.forms import OrderForm, CustomerForm, CustomerUpdateForm
 from manage.models import Product, Customer, Order
 
 
-@login_required(login_url='auth')
 def home_page(request):
-    if request.user.is_staff:
-        return redirect('dashboard')
-
     return redirect('products')
 
 
@@ -100,6 +96,7 @@ class GetProduct(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+
         filter_val = self.request.GET.get('name_contains', None)
         if filter_val == 'featured':
             new_context = Product.objects.filter(is_featured__exact=True)
@@ -110,14 +107,19 @@ class GetProduct(ListView):
                 name__icontains=filter_val,
             )
         else:
-            new_context = Product.objects.all()
+            new_context = Product.objects.all().order_by('id')
         return new_context
 
     def get_context_data(self, **kwargs):
         context = super(GetProduct, self).get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_anonymous:
+            context['user'] = None
+        else:
+            context['user'] = user
         context['filter'] = self.request.GET.get('name_contains', None)
         context['search'] = self.request.GET.get('name_contains', None)
-        context['specials'] = Product.objects.filter(is_special=True)
+        context['specials'] = Product.objects.filter(is_special=True).order_by('-id')
         return context
 
 
@@ -127,7 +129,7 @@ def logout(request):
         messages.success(request, "Logged out successfully")
         return redirect('auth')
 
-
+@login_required(login_url='auth')
 def my_profile(request):
     context = {
         'user': request.user,
