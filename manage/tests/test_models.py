@@ -1,6 +1,8 @@
 from django.test import TestCase
+
+from customer.tests.test_views import create_customer
 from manage.models import *
-from .test_views import create_staff, create_customer, create_product
+from .test_views import create_staff, create_product
 
 class TestModels(TestCase):
 

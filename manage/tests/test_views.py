@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+
 from manage.models import *
 
 def create_staff():
@@ -18,8 +19,21 @@ def create_staff():
     )
     return staff
 
-
-
+def create_customer():
+    user = User.objects.create(username="test_customer")
+    user.set_password('123456')
+    user.email = 'test_customer'
+    user.is_staff = False
+    user.is_customer = True
+    user.is_admin = False
+    user.is_active = True
+    user.save()
+    customer = Customer.objects.create(
+        name='test_customer',
+        address='test_address',
+        user=user,
+    )
+    return customer
 
 def create_product():
     product = Product.objects.create(
@@ -44,6 +58,7 @@ class TestViews(TestCase):
     def setUpTestData(cls):
         cls.client = Client()
         cls.staff = create_staff()
+        cls.customer = create_customer()
         cls.product = create_product()
         cls.order = Order.objects.create(
             staff=cls.staff,
