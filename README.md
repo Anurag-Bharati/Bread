@@ -75,7 +75,7 @@
 
 
 
-  [![Product Name Screen Shot][product-screenshot]]
+  ![Product Name Screen Shot][product-screenshot]
 
 
 Bread is a web app built using HTML, CSS, JS, Bootstrap, jQuery and Django. 
