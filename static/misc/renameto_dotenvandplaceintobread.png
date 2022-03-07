@@ -1,0 +1,17 @@
+
+SECRET_KEY='django-insecure-s52huywt^%qchvgyb9m0)h9^-4i$a%9h7b@^du)7kscze+z@hx'
+
+# DATABASE
+
+DATABASE_NAME=bread
+DATABASE_USER=root
+DATABASE_PASS=root
+DATABASE_HOST=localhost
+
+# EMAIL
+
+EMAIL_HOST=noreply.thisisforaproject@gmail.com
+DEFAULT_EMAIL_HOST=noreply.thisisforaproject@gmail.com
+EMAIL_PASS=Bharati26
+EMAIL_PROTOCOL=smtp.gmail.com
+

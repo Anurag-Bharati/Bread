@@ -92,7 +92,7 @@ def my_plate(request):
 class GetProduct(ListView):
     model = Product
     template_name = 'customer/customer_home.html'
-    paginate_by = 1
+    paginate_by = 5
     context_object_name = 'products'
 
     def get_queryset(self):
