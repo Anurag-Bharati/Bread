@@ -32,7 +32,7 @@
   <p align="center">
     Get weather of any place around the globe with amazing visuals
     <br />
-    <a href="https://github.com/Anurag-Bharati/Bread"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Anurag-Bharati/Bread/blob/main/static/misc/11494830_AnuragBharati_ST5007CEM.pdf"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Anurag-Bharati/Bread">View Demo</a>
@@ -130,7 +130,7 @@ Here are the things you need to install to run this project:
 1. As an Admin, create superuser from the terminal
 2. As a customer, register and login.
 
-For more examples, please refer to the [Documentation] - Coming soon!
+For more examples, please refer to the [Documentation][doc-url]
 
 
 <!-- CONTACT -->
@@ -161,4 +161,5 @@ For more examples, please refer to the [Documentation] - Coming soon!
 [facebook-url]:https://www.facebook.com/frost.king.1042
 
 [product-screenshot]:<https://github.com/Anurag-Bharati/Bread/blob/main/bread_cover.png>
+[doc-url]:https://github.com/Anurag-Bharati/Bread/blob/main/static/misc/11494830_AnuragBharati_ST5007CEM.pdf
 
