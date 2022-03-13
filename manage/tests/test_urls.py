@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 
 from manage.views import *
 
+
 class TestUrls(SimpleTestCase):
 
     # Reverse : retrieve url details from url's.py

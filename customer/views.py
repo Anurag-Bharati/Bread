@@ -129,6 +129,7 @@ def logout(request):
         messages.success(request, "Logged out successfully")
         return redirect('auth')
 
+
 @login_required(login_url='auth')
 def my_profile(request):
     context = {

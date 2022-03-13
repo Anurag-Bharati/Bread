@@ -9,14 +9,13 @@
 
 [![Build][build-shield]][build-url]
 [![Coverage][covergae-shield]][coverage-url]
-[![Contributors][contributors-shield]][contributors-url]
 [![License][license-shield]][license-url]
 [![Downloads][download-shield]][download-url]
 [![Forks][forks-shield]][forks-url]
-[![size][size-shield]][size-url]
 [![LastCommit][lastCommit-shield]][size-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![Facebook][facebook-shield]][facebook-url]
+![SearchHit][hits-shield]
 </div>
 
 
@@ -43,7 +42,7 @@
     ·
     <a href="https://github.com/Anurag-Bharati/Bread/issues">Request Feature</a>
   </p>
-</p>
+
 
 
 
@@ -166,7 +165,7 @@ For more examples, please refer to the [Documentation][doc-url]
 [linkedin-url]: https://www.linkedin.com/in/anurag-bharati-5abb6820a/
 [facebook-shield]:https://img.shields.io/badge/Facebook-Anurag-blue?style=for-the-badge
 [facebook-url]:https://www.facebook.com/frost.king.1042
-
+[hits-shield]:https://img.shields.io/github/search/anurag-bharati/Bread/all?color=green&label=repo%20hits&style=for-the-badge
 [product-screenshot]:<https://github.com/Anurag-Bharati/Bread/blob/main/bread_cover.png>
 [doc-url]:https://github.com/Anurag-Bharati/Bread/blob/main/static/misc/11494830_AnuragBharati_ST5007CEM.pdf
 

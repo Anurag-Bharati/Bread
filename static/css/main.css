@@ -59,6 +59,19 @@ ul {
     list-style: none;
 }
 
+body::-webkit-scrollbar{
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track{
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body::-webkit-scrollbar-thumb{
+    background: rgba(239, 71, 111, 0.9);
+    border-radius: 10px;
+}
+
 .btn-1 {
     background: var(--main-color);
     padding: 8px 30px;
