@@ -30,7 +30,7 @@
   <p align="center"> </p>
 
   <p align="center">
-    Get weather of any place around the globe with amazing visuals
+    Remote menu for your business!
     <br />
     <a href="https://github.com/Anurag-Bharati/Bread/blob/main/static/misc/11494830_AnuragBharati_ST5007CEM.pdf"><strong>Explore the docs »</strong></a>
     <br />
