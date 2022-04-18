@@ -34,7 +34,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Migrations
       run: |
-      python manage.py migrate
+        python manage.py migrate
       env:
         DBENGINE: django.db.backends.mysql
         DBNAME: mysql
