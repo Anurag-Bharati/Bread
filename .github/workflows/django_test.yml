@@ -36,6 +36,11 @@ jobs:
       run: |
         python manage.py migrate
       env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        EMAIL_HOST: ${{ secrets.NULL }}
+        DEFAULT_EMAIL_HOST: ${{ secrets.NULL }}
+        EMAIL_PASS: ${{ secrets.NULL }}
+        EMAIL_PROTOCOL: ${{ secrets.NULL}}
         DBENGINE: django.db.backends.mysql
         DBNAME: mysql
         DBUSER: root
