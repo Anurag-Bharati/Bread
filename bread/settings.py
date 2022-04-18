@@ -27,7 +27,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["13ea-103-163-182-46.ngrok.io", "localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["http://13ea-103-163-182-46.ngrok.io", "https://13ea-103-163-182-46.ngrok.io"]
 
 # Application definition
 
