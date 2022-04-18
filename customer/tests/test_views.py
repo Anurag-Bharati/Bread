@@ -63,7 +63,7 @@ class TestViews(TestCase):
 
     def test_customer_get_order(self):
         response = self.client.get(self.order_url)
-        self.assertEquals(response.status_code, 202)
+        self.assertEquals(response.status_code, 200)
 
     def test_customer_post_order(self):
         response = self.client.post(self.order_url, {
