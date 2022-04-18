@@ -41,11 +41,10 @@ jobs:
         DEFAULT_EMAIL_HOST: ${{ secrets.NULL }}
         EMAIL_PASS: ${{ secrets.NULL }}
         EMAIL_PROTOCOL: ${{ secrets.NULL}}
-        DBENGINE: django.db.backends.mysql
-        DBNAME: mysql
-        DBUSER: root
-        DBPASSWORD: test
-        DBHOST: 127.0.0.1
+        DATABASE_NAME: mysql
+        DATABASE_USER: root
+        DATABASE_PASS: test
+        DATABASE_HOST: 127.0.0.1
         DBPORT: $
     - name: Run Tests
       run: |
@@ -56,11 +55,10 @@ jobs:
         DEFAULT_EMAIL_HOST: ${{ secrets.NULL }}
         EMAIL_PASS: ${{ secrets.NULL }}
         EMAIL_PROTOCOL: ${{ secrets.NULL}}
-        DBENGINE: django.db.backends.mysql
-        DBNAME: mysql
-        DBUSER: root
-        DBPASSWORD: test
-        DBHOST: 127.0.0.1
+        DATABASE_NAME: mysql
+        DATABASE_USER: root
+        DATABASE_PASS: test
+        DATABASE_HOST: 127.0.0.1
         DBPORT: $
 
 
