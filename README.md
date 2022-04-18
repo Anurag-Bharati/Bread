@@ -8,6 +8,7 @@
 <div align="center">
 
 [![Build][build-shield]][build-url]
+[![Coverage][covergae-shield]][coverage-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![License][license-shield]][license-url]
 [![Downloads][download-shield]][download-url]
@@ -148,6 +149,8 @@ For more examples, please refer to the [Documentation][doc-url]
   
 [build-shield]:https://img.shields.io/github/workflow/status/anurag-bharati/bread/Django%20CI/main?style=for-the-badge
 [build-url]:https://github.com/Anurag-Bharati/Bread/actions/workflows/django_test.yml
+[covergae-shield]:https://img.shields.io/codecov/c/github/anurag-bharati/bread?style=for-the-badge
+[coverage-url]:https://app.codecov.io/gh/Anurag-Bharati/Bread
 [download-shield]: https://img.shields.io/github/downloads/anurag-bharati/bread/1.0/total?style=for-the-badge
 [download-url]:https://github.com/Anurag-Bharati/bread/releases/tag/1.0
 [license-shield]:https://img.shields.io/github/license/Anurag-Bharati/Bread?style=for-the-badge
