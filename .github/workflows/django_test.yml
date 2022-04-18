@@ -28,3 +28,14 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DATABASE_NAME: ${{ secrets.NULL }}
+        DATABASE_USER: ${{ secrets.NULL }}
+        DATABASE_PASS: ${{ secrets.NULL }}
+        DATABASE_HOST: ${{ secrets.NULL }}
+        EMAIL_HOST: ${{ secrets.NULL }}
+        DEFAULT_EMAIL_HOST: ${{ secrets.NULL }}
+        EMAIL_PASS: ${{ secrets.NULL }}
+        EMAIL_PROTOCOL: ${{ secrets.NULL}}
+
