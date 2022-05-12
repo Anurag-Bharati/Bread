@@ -88,6 +88,7 @@ class CustomerListView(ListView):
     paginate_by = 1
     ordering = 'id'
 
+
 # Product
 @login_required(login_url='auth')
 def create_product(request):
@@ -410,6 +411,7 @@ class DeliveryListView(ListView):
     context_object_name = 'delivery'
     paginate_by = 1
     ordering = '-id'
+
 
 @login_required(login_url='auth')
 def order_summary(request):
