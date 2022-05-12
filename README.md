@@ -101,7 +101,7 @@ Bread is free of cost to use and open source.
 * [jQuery](https://jquery.com/)
 * [PyCharm](https://www.jetbrains.com)
 
-Twilight is build in Python with Django Framework. The code editor that I have used is Pycharm
+Bread is build in Python with Django Framework. The code editor that I have used is Pycharm
 
 
 <!-- GETTING STARTED -->
