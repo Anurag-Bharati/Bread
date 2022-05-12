@@ -420,3 +420,4 @@ $RECYCLE.BIN/
 /static/images/uploads/*jpg
 /static/images/uploads/*jpeg
 /static/images/uploads/*gif
+/.gitconfig.user
